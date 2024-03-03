@@ -12,7 +12,7 @@ struct CheerAppApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-            SingleCatView()
+        
         }
     }
 }
