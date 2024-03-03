@@ -5,64 +5,12 @@
 //  Created by Lisa Gillfrost on 2024-03-01.
 //
 
-import AVFoundation
-import SwiftUI
 
+import SwiftUI
 
 struct CatModel: Identifiable {
     let id = UUID()
     let name: String
-}
-
-struct CatView: View {
-    let model: CatModel
-    
-    @State private var player: AVAudioPlayer?
-    
-    
-    var body: some View {
-        Image(model.name)
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-            .gesture(
-                LongPressGesture(minimumDuration: 0.5  )
-                    .onChanged { _ in
-                        player?.play()
-                    }
-                    .onEnded { _ in
-                        player?.stop()
-                    }
-            )
-            .onAppear {
-                initializeAudioPlayer()
-            }
-    }
-    
-    private func initializeAudioPlayer() {
-        guard let url = Bundle.main.url(forResource: "0981", withExtension: "wav") else {
-            print("Audio file is not found.")
-            return
-        }
-        
-        do {
-            player = try AVAudioPlayer(contentsOf: url)
-            player?.prepareToPlay()
-        } catch {
-            print("Failed to initialize the audio player: \(error)")
-        }
-    }
-    
-}
-
-struct AudioPlayerView_Previews: PreviewProvider {
-    static var previews: some View {
-        @State var cats = [
-            CatModel(name: "dandelion"),
-            CatModel(name: "torsten")
-        ]
-        
-        CatView(model: cats[0])
-    }
 }
 
 struct ContentView: View {

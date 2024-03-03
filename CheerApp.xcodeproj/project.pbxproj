@@ -7,19 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		42313A552B92620100453DCF /* CheerAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42313A542B92620100453DCF /* CheerAppApp.swift */; };
+		42313A552B92620100453DCF /* CheerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42313A542B92620100453DCF /* CheerApp.swift */; };
 		42313A572B92620100453DCF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42313A562B92620100453DCF /* ContentView.swift */; };
 		42313A592B92620400453DCF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42313A582B92620400453DCF /* Assets.xcassets */; };
 		42313A5C2B92620400453DCF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42313A5B2B92620400453DCF /* Preview Assets.xcassets */; };
 		42313A632B9267E000453DCF /* dandelion.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 42313A622B9267E000453DCF /* dandelion.JPG */; };
 		42313A652B9268CA00453DCF /* torsten.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 42313A642B9268CA00453DCF /* torsten.jpg */; };
 		42313A692B94C94700453DCF /* 0981.wav in Resources */ = {isa = PBXBuildFile; fileRef = 42313A682B94C94700453DCF /* 0981.wav */; };
-		42313A6C2B94C95600453DCF /* 1010.wav in Resources */ = {isa = PBXBuildFile; fileRef = 42313A6B2B94C95600453DCF /* 1010.wav */; };
+		42313A702B95114C00453DCF /* CatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42313A6F2B95114C00453DCF /* CatView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		42313A512B92620100453DCF /* CheerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CheerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		42313A542B92620100453DCF /* CheerAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheerAppApp.swift; sourceTree = "<group>"; };
+		42313A542B92620100453DCF /* CheerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheerApp.swift; sourceTree = "<group>"; };
 		42313A562B92620100453DCF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		42313A582B92620400453DCF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		42313A5B2B92620400453DCF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -27,9 +27,9 @@
 		42313A642B9268CA00453DCF /* torsten.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = torsten.jpg; path = ../../../Desktop/torsten.jpg; sourceTree = "<group>"; };
 		42313A682B94C94700453DCF /* 0981.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = 0981.wav; path = ../../../../Downloads/0981.wav; sourceTree = "<group>"; };
 		42313A6A2B94C94D00453DCF /* torsten.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = torsten.wav; sourceTree = "<group>"; };
-		42313A6B2B94C95600453DCF /* 1010.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = 1010.wav; path = ../../Downloads/1010.wav; sourceTree = "<group>"; };
 		42313A6D2B94C95900453DCF /* dandelion.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dandelion.wav; sourceTree = "<group>"; };
 		42313A6E2B94D4E000453DCF /* 1010.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 1010.wav; sourceTree = "<group>"; };
+		42313A6F2B95114C00453DCF /* CatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,7 +46,6 @@
 		42313A482B92620100453DCF = {
 			isa = PBXGroup;
 			children = (
-				42313A6B2B94C95600453DCF /* 1010.wav */,
 				42313A532B92620100453DCF /* CheerApp */,
 				42313A522B92620100453DCF /* Products */,
 			);
@@ -63,12 +62,13 @@
 		42313A532B92620100453DCF /* CheerApp */ = {
 			isa = PBXGroup;
 			children = (
-				42313A542B92620100453DCF /* CheerAppApp.swift */,
+				42313A542B92620100453DCF /* CheerApp.swift */,
 				42313A562B92620100453DCF /* ContentView.swift */,
 				42313A642B9268CA00453DCF /* torsten.jpg */,
 				42313A622B9267E000453DCF /* dandelion.JPG */,
 				42313A582B92620400453DCF /* Assets.xcassets */,
 				42313A5A2B92620400453DCF /* Preview Content */,
+				42313A6F2B95114C00453DCF /* CatView.swift */,
 			);
 			path = CheerApp;
 			sourceTree = "<group>";
@@ -147,7 +147,6 @@
 				42313A692B94C94700453DCF /* 0981.wav in Resources */,
 				42313A652B9268CA00453DCF /* torsten.jpg in Resources */,
 				42313A632B9267E000453DCF /* dandelion.JPG in Resources */,
-				42313A6C2B94C95600453DCF /* 1010.wav in Resources */,
 				42313A592B92620400453DCF /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -160,7 +159,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				42313A572B92620100453DCF /* ContentView.swift in Sources */,
-				42313A552B92620100453DCF /* CheerAppApp.swift in Sources */,
+				42313A552B92620100453DCF /* CheerApp.swift in Sources */,
+				42313A702B95114C00453DCF /* CatView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
