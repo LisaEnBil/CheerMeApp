@@ -26,8 +26,6 @@
 		42313A622B9267E000453DCF /* dandelion.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = dandelion.JPG; path = ../../../Downloads/dandelion.JPG; sourceTree = "<group>"; };
 		42313A642B9268CA00453DCF /* torsten.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = torsten.jpg; path = ../../../Desktop/torsten.jpg; sourceTree = "<group>"; };
 		42313A682B94C94700453DCF /* 0981.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = 0981.wav; path = ../../../../Downloads/0981.wav; sourceTree = "<group>"; };
-		42313A6A2B94C94D00453DCF /* torsten.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = torsten.wav; sourceTree = "<group>"; };
-		42313A6D2B94C95900453DCF /* dandelion.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dandelion.wav; sourceTree = "<group>"; };
 		42313A6E2B94D4E000453DCF /* 1010.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 1010.wav; sourceTree = "<group>"; };
 		42313A6F2B95114C00453DCF /* CatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -77,8 +75,6 @@
 			isa = PBXGroup;
 			children = (
 				42313A6E2B94D4E000453DCF /* 1010.wav */,
-				42313A6A2B94C94D00453DCF /* torsten.wav */,
-				42313A6D2B94C95900453DCF /* dandelion.wav */,
 				42313A682B94C94700453DCF /* 0981.wav */,
 				42313A5B2B92620400453DCF /* Preview Assets.xcassets */,
 			);
