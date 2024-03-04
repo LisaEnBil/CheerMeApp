@@ -11,7 +11,6 @@ struct CatView: View {
     let model: CatModel
     
     @State private var player: AVAudioPlayer?
-    @State private var isPlaying = false
     @State private var isDragging = false
     
     var body: some View {
@@ -23,7 +22,6 @@ struct CatView: View {
                 DragGesture()
                     .onChanged { _ in
                         self.isDragging = true
-                    
                         player?.play()
                     }
                     .onEnded { _ in
@@ -38,7 +36,7 @@ struct CatView: View {
     }
     
     private func initializeAudioPlayer() {
-        guard let url = Bundle.main.url(forResource: "0981", withExtension: "wav") else {
+        guard let url = Bundle.main.url(forResource: model.audio, withExtension: "wav") else {
             print("Audio file is not found.")
             return
         }
@@ -52,15 +50,15 @@ struct CatView: View {
     }
     
 }
-
-struct AudioPlayerView_Previews: PreviewProvider {
-    static var previews: some View {
-        @State var cats = [
-            CatModel(name: "dandelion"),
-            CatModel(name: "torsten")
-        ]
-        
-        CatView(model: cats[0])
-    }
-}
-
+//
+//struct AudioPlayerView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        @State var cats = [
+//            CatModel(name: "dandelion"),
+//            CatModel(name: "torsten")
+//        ]
+//        
+//        CatView(model: cats[0])
+//    }
+//}
+//

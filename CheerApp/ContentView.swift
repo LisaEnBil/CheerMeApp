@@ -11,12 +11,13 @@ import SwiftUI
 struct CatModel: Identifiable {
     let id = UUID()
     let name: String
+    let audio: String
 }
 
 struct ContentView: View {
     @State var cats = [
-        CatModel(name: "dandelion"),
-        CatModel(name: "torsten")
+        CatModel(name: "dandelion", audio: "0981"),
+        CatModel(name: "torsten",  audio: "1010")
     ]
     
     var body: some View {
@@ -40,7 +41,7 @@ struct ContentView: View {
             .navigationTitle("Boom!")
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Help") {
+                    Button("Add your cat") {
                         print("Help tapped!")
                     }
                 }
