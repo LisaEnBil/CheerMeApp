@@ -7,25 +7,33 @@
 
 
 import SwiftUI
+import PhotosUI
+
 
 struct CatModel: Identifiable {
     let id = UUID()
     let name: String
-    let audio: String
+    let audio: String?
 }
 
 struct ContentView: View {
+    
+    @State private var showModal = false
+    @State var image: UIImage?
     @State var cats = [
         CatModel(name: "dandelion", audio: "0981"),
         CatModel(name: "torsten",  audio: "1010")
+        
     ]
     
     var body: some View {
         
         NavigationStack {
+            
             List(cats) { cat in
                 NavigationLink {
                     CatView(model: cat)
+                    
                 } label: {
                     VStack(alignment: .center) {
                         Image(cat.name)
@@ -33,21 +41,25 @@ struct ContentView: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(height: 200)
                         Text(cat.name)
+                        
                     }
-                    
                 }
             }
-            
-            .navigationTitle("Boom!")
+            .navigationTitle("Home")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Add your cat") {
-                        print("Help tapped!")
-                    }
+                
+                Button("+") {
+                    showModal = true
+                } .sheet(isPresented: $showModal) {
+                    AddCatView(showModal: $showModal, image: $image, name: "", audio: "", cats: $cats)
                 }
+                
             }
         }
     }
+   
+
 }
 
 #Preview {
