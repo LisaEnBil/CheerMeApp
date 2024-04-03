@@ -32,7 +32,7 @@ struct AddCatView: View {
                         if let data = try? await selectedItem?.loadTransferable(type: Data.self) {
                             image = UIImage(data: data)
                             
-                            saveImageToDocumentsDirectory(image: image)
+                            //saveImageToDocumentsDirectory(image: image)
                             
                         }
                         print("Failed to load the image")
@@ -43,6 +43,7 @@ struct AddCatView: View {
                 Image(uiImage: image)
                     .resizable()
                     .scaledToFit()
+                    .frame(width: 100.0, height: 100.0)
             }
             
             Button(action:{
@@ -61,23 +62,23 @@ struct AddCatView: View {
         
         
     }
-    func saveImageToDocumentsDirectory(image: UIImage?) {
-        guard let image = image,
-              let data = image.jpegData(compressionQuality: 1.0) else {
-            print("Failed to save image. Image is nil or couldn't be converted to data.")
-            return
-        }
-        
-        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let imageURL = documentsDirectory.appendingPathComponent("savedImage.jpg")
-        
-        do {
-            try data.write(to: imageURL)
-            print("Image saved successfully at: \(imageURL.absoluteString)")
-        } catch {
-            print("Error saving image:", error)
-        }
-    }
+//    func saveImageToDocumentsDirectory(image: UIImage?) {
+//        guard let image = image,
+//              let data = image.jpegData(compressionQuality: 1.0) else {
+//            print("Failed to save image. Image is nil or couldn't be converted to data.")
+//            return
+//        }
+//        
+//        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+//        let imageURL = documentsDirectory.appendingPathComponent("savedImage.jpg")
+//        
+//        do {
+//            try data.write(to: imageURL)
+//            print("Image saved successfully at: \(imageURL.absoluteString)")
+//        } catch {
+//            print("Error saving image:", error)
+//        }
+//    }
     
     
     func saveCat(addCat: CatModel) {
@@ -85,6 +86,31 @@ struct AddCatView: View {
             return
         }
         var ref : DatabaseReference!
+        
+        let storage = Storage.storage()
+        let storageRef = storage.reference()
+        
+        let imageData: Data? = image?.jpegData(compressionQuality: 0)
+        
+      
+
+    let imagesRef = storageRef.child("images/" + addCat.name + ".png" )
+        
+        imagesRef.putData((imageData)!, metadata: nil) { (metadata, error) in
+          guard let metadata = metadata else {
+            // Uh-oh, an error occurred!
+            return
+          }
+          // Metadata contains file metadata such as size, content-type.
+          let size = metadata.size
+          // You can also access to download URL after upload.
+            imagesRef.downloadURL { (url, error) in
+            guard let downloadURL = url else {
+              // Uh-oh, an error occurred!
+              return
+            }
+          }
+        }
         
         ref = Database.database().reference()
         
@@ -96,7 +122,6 @@ struct AddCatView: View {
         
         let newCat = CatModel(name: addCat.name, audio: "0981")
         self.addCat(newCat)
-        print(cats)
 
     }
     
