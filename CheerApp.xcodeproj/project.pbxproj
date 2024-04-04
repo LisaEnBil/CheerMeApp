@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4229F3012BBD450100A7F365 /* CatHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4229F3002BBD450100A7F365 /* CatHelpers.swift */; };
 		422ADB3A2BBAC373004D2F9F /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 422ADB392BBAC373004D2F9F /* FirebaseAnalytics */; };
 		422ADB3C2BBAC373004D2F9F /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 422ADB3B2BBAC373004D2F9F /* FirebaseAnalyticsOnDeviceConversion */; };
 		422ADB3E2BBAC373004D2F9F /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 422ADB3D2BBAC373004D2F9F /* FirebaseAnalyticsSwift */; };
@@ -43,10 +44,12 @@
 		42313A652B9268CA00453DCF /* torsten.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 42313A642B9268CA00453DCF /* torsten.jpg */; };
 		42313A692B94C94700453DCF /* 0981.wav in Resources */ = {isa = PBXBuildFile; fileRef = 42313A682B94C94700453DCF /* 0981.wav */; };
 		42313A702B95114C00453DCF /* CatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42313A6F2B95114C00453DCF /* CatView.swift */; };
+		425689CC2BBEE04E00AAA85F /* IMG_3909.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 425689CB2BBEE04D00AAA85F /* IMG_3909.jpeg */; };
 		42A858D72BBAE37700C63B48 /* dandelion.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 42A858D62BBAE37700C63B48 /* dandelion.JPG */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4229F3002BBD450100A7F365 /* CatHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatHelpers.swift; sourceTree = "<group>"; };
 		422ADB6B2BBAC5F9004D2F9F /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		422ADB6D2BBAC637004D2F9F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		422ADB6F2BBAC77A004D2F9F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -60,6 +63,7 @@
 		42313A682B94C94700453DCF /* 0981.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = 0981.wav; path = ../../../../Downloads/0981.wav; sourceTree = "<group>"; };
 		42313A6E2B94D4E000453DCF /* 1010.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 1010.wav; sourceTree = "<group>"; };
 		42313A6F2B95114C00453DCF /* CatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatView.swift; sourceTree = "<group>"; };
+		425689CB2BBEE04D00AAA85F /* IMG_3909.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMG_3909.jpeg; sourceTree = "<group>"; };
 		42A858D62BBAE37700C63B48 /* dandelion.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dandelion.JPG; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -122,6 +126,7 @@
 				42313A542B92620100453DCF /* CheerApp.swift */,
 				42313A562B92620100453DCF /* ContentView.swift */,
 				42313A642B9268CA00453DCF /* torsten.jpg */,
+				425689CB2BBEE04D00AAA85F /* IMG_3909.jpeg */,
 				42A858D62BBAE37700C63B48 /* dandelion.JPG */,
 				42313A582B92620400453DCF /* Assets.xcassets */,
 				42313A5A2B92620400453DCF /* Preview Content */,
@@ -129,6 +134,7 @@
 				422ADB6B2BBAC5F9004D2F9F /* StartView.swift */,
 				422ADB6D2BBAC637004D2F9F /* LoginView.swift */,
 				422ADB712BBAE206004D2F9F /* AddCatView.swift */,
+				4229F3002BBD450100A7F365 /* CatHelpers.swift */,
 			);
 			path = CheerApp;
 			sourceTree = "<group>";
@@ -237,6 +243,7 @@
 				42313A652B9268CA00453DCF /* torsten.jpg in Resources */,
 				42A858D72BBAE37700C63B48 /* dandelion.JPG in Resources */,
 				42313A592B92620400453DCF /* Assets.xcassets in Resources */,
+				425689CC2BBEE04E00AAA85F /* IMG_3909.jpeg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,6 +260,7 @@
 				422ADB6E2BBAC637004D2F9F /* LoginView.swift in Sources */,
 				422ADB6C2BBAC5F9004D2F9F /* StartView.swift in Sources */,
 				422ADB722BBAE206004D2F9F /* AddCatView.swift in Sources */,
+				4229F3012BBD450100A7F365 /* CatHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

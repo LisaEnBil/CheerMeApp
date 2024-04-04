@@ -16,12 +16,11 @@ struct AddCatView: View {
     @State private var selectedItem: PhotosPickerItem?
     @Binding var image: UIImage?
     @State var name: String
-    @State var audio: String
-    @State var cat = CatModel(name: "", audio: "")
+ 
     @Binding var cats: [CatModel]
     
-    
     var body: some View {
+        
         
         VStack {
             TextField("CatsName", text: $name )
@@ -47,41 +46,29 @@ struct AddCatView: View {
             }
             
             Button(action:{
-                saveCat(addCat: CatModel(name: name, audio: "0981"))
+                saveCat(addCat: CatModel(name: name, image: image!))
+                
+                showModal = false
             }, label: {
                 Text("Save your cat")
             })
                 
             
             
-            Button("Stäng") {
-                showModal = false
-            }
+          
         }
         .padding()
         
         
     }
-//    func saveImageToDocumentsDirectory(image: UIImage?) {
-//        guard let image = image,
-//              let data = image.jpegData(compressionQuality: 1.0) else {
-//            print("Failed to save image. Image is nil or couldn't be converted to data.")
-//            return
-//        }
-//        
-//        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-//        let imageURL = documentsDirectory.appendingPathComponent("savedImage.jpg")
-//        
-//        do {
-//            try data.write(to: imageURL)
-//            print("Image saved successfully at: \(imageURL.absoluteString)")
-//        } catch {
-//            print("Error saving image:", error)
-//        }
-//    }
-    
+    func addCat(_ cat: CatModel) {
+        cats.append(cat)
+    }
     
     func saveCat(addCat: CatModel) {
+        
+        let uid = Auth.auth().currentUser!.uid
+        
         if addCat.name == "" {
             return
         }
@@ -94,7 +81,7 @@ struct AddCatView: View {
         
       
 
-    let imagesRef = storageRef.child("images/" + addCat.name + ".png" )
+    let imagesRef = storageRef.child("images/" + uid + "/" + addCat.name + ".png" )
         
         imagesRef.putData((imageData)!, metadata: nil) { (metadata, error) in
           guard let metadata = metadata else {
@@ -117,15 +104,17 @@ struct AddCatView: View {
         var cat = [String: Any]()
         
         cat["name"] = addCat.name
-        let uid = Auth.auth().currentUser!.uid
-        ref.child("catlist").child(uid).childByAutoId().setValue(cat)
+       // cat["audio"] = "0981"
+ 
+        ref.child("user_cat_list").child(uid).childByAutoId().setValue(cat)
         
-        let newCat = CatModel(name: addCat.name, audio: "0981")
-        self.addCat(newCat)
+        //let newCat = CatModel(name: addCat.name, image: $image)
+       // self.addCat(newCat)
 
     }
     
-    func addCat(_ cat: CatModel) {
-        cats.append(cat)
-    }
+    
+   
+    
+   
 }
