@@ -22,13 +22,14 @@ struct StartView: View {
                 LoginView()
             }
         }.onAppear(){
-            var handle = Auth.auth().addStateDidChangeListener {
+            Auth.auth().addStateDidChangeListener {
                 auth, user in
                                 
                 if Auth.auth().currentUser == nil {
                     isLoggedIn = false
                 }else {
                     isLoggedIn = true
+                
                     print(Auth.auth().currentUser?.uid as Any)
                 }
                 
