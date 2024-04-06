@@ -10,6 +10,8 @@ import Firebase
 
 struct LoginView: View {
     
+    let userAuth = UserAuthentification()
+    
     @State var email = ""
     @State var password = ""
     
@@ -17,45 +19,23 @@ struct LoginView: View {
         VStack {
             TextField("Email", text: $email )
             
-            TextField("Password", text: $password )
+            TextField("Password", text: $password ).textCase(.lowercase)
             
             Button(action: {
-                login()
+                userAuth.login(email: email, password: password)
             }, label: {
             Text("Login")
             })
             
             Button(action: {
-                register()
+                userAuth.register(email: email, password: password)
             }, label: {
             Text("Register")
    
             })
         }
     }
-    
-    func login() {
-        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
-           
-            if error == nil {
-                print("Login OK")
-            } else {
-                print("Login fail")
-            }
-        }
-    }
-    
-    func register() {
-        Auth.auth().createUser(withEmail: email, password: password) {
-            authResult, error in
-            
-             if error == nil {
-                 print("Register OK")
-             } else {
-                 print("Register fail")
-             }
-        }
-    }
+  
 }
 
 #Preview {
