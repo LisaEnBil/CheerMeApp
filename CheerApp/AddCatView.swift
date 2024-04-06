@@ -52,6 +52,13 @@ struct AddCatView: View {
             }, label: {
                 Text("Save your cat")
             })
+            
+            Button(action:{
+   
+                showModal = false
+            }, label: {
+                Text("Stäng")
+            })
                 
             
             
