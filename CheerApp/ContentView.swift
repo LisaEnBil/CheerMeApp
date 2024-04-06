@@ -13,9 +13,11 @@ import FirebaseStorage
 
 
 
+
 struct ContentView: View {
     
-    @State private var showModal = false
+    @State private var showAddCatModal = false
+    @State private var showSettingsModal = false
     @State var image: UIImage?
     @State var cats : [CatModel] = []
     
@@ -26,6 +28,12 @@ struct ContentView: View {
     var body: some View {
         
         NavigationStack {
+
+            Button("Add cat") {
+                showAddCatModal = true
+            } .sheet(isPresented: $showAddCatModal) {
+                AddCatView(showModal: $showAddCatModal, image: $image, name: "", cats: $cats)
+            }
             
             List(cats) { cat in
                 NavigationLink {
@@ -46,12 +54,14 @@ struct ContentView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 
-                Button("+") {
-                    showModal = true
-                } .sheet(isPresented: $showModal) {
-                    AddCatView(showModal: $showModal, image: $image, name: "", cats: $cats)
+                Button(action: {
+                    showSettingsModal = true
+                }, label: {
+                    Image(systemName: "gearshape")
+                }).sheet(isPresented: $showSettingsModal) {
+                    SettingsView(showModal: $showSettingsModal)
                 }
-                
+ 
             }
         }.onAppear(){
             loadtodo()
