@@ -53,7 +53,7 @@
 /* Begin PBXFileReference section */
 		4229F3002BBD450100A7F365 /* CatHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatHelpers.swift; sourceTree = "<group>"; };
 		422ADB6B2BBAC5F9004D2F9F /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
-		422ADB6D2BBAC637004D2F9F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		422ADB6D2BBAC637004D2F9F /* LoginView.swift */ = {isa = PBXFileReference; indentWidth = 1; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; tabWidth = 1; wrapsLines = 0; };
 		422ADB6F2BBAC77A004D2F9F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		422ADB712BBAE206004D2F9F /* AddCatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCatView.swift; sourceTree = "<group>"; };
 		42313A512B92620100453DCF /* CheerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CheerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
