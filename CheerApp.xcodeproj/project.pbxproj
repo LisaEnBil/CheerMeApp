@@ -45,7 +45,7 @@
 		42313A692B94C94700453DCF /* 0981.wav in Resources */ = {isa = PBXBuildFile; fileRef = 42313A682B94C94700453DCF /* 0981.wav */; };
 		42313A702B95114C00453DCF /* CatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42313A6F2B95114C00453DCF /* CatView.swift */; };
 		425689CC2BBEE04E00AAA85F /* IMG_3909.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 425689CB2BBEE04D00AAA85F /* IMG_3909.jpeg */; };
-		425689CE2BBFE47500AAA85F /* UserAuthentification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425689CD2BBFE47400AAA85F /* UserAuthentification.swift */; };
+		425689CE2BBFE47500AAA85F /* UserAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425689CD2BBFE47400AAA85F /* UserAuthentication.swift */; };
 		425689D02BC00A2800AAA85F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425689CF2BC00A2800AAA85F /* SettingsView.swift */; };
 		42A858D72BBAE37700C63B48 /* dandelion.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 42A858D62BBAE37700C63B48 /* dandelion.JPG */; };
 /* End PBXBuildFile section */
@@ -66,7 +66,7 @@
 		42313A6E2B94D4E000453DCF /* 1010.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 1010.wav; sourceTree = "<group>"; };
 		42313A6F2B95114C00453DCF /* CatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatView.swift; sourceTree = "<group>"; };
 		425689CB2BBEE04D00AAA85F /* IMG_3909.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMG_3909.jpeg; sourceTree = "<group>"; };
-		425689CD2BBFE47400AAA85F /* UserAuthentification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthentification.swift; sourceTree = "<group>"; };
+		425689CD2BBFE47400AAA85F /* UserAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthentication.swift; sourceTree = "<group>"; };
 		425689CF2BC00A2800AAA85F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		42A858D62BBAE37700C63B48 /* dandelion.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dandelion.JPG; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -139,7 +139,7 @@
 				422ADB6D2BBAC637004D2F9F /* LoginView.swift */,
 				422ADB712BBAE206004D2F9F /* AddCatView.swift */,
 				4229F3002BBD450100A7F365 /* CatHelpers.swift */,
-				425689CD2BBFE47400AAA85F /* UserAuthentification.swift */,
+				425689CD2BBFE47400AAA85F /* UserAuthentication.swift */,
 				425689CF2BC00A2800AAA85F /* SettingsView.swift */,
 			);
 			path = CheerApp;
@@ -264,7 +264,7 @@
 				42313A552B92620100453DCF /* CheerApp.swift in Sources */,
 				42313A702B95114C00453DCF /* CatView.swift in Sources */,
 				425689D02BC00A2800AAA85F /* SettingsView.swift in Sources */,
-				425689CE2BBFE47500AAA85F /* UserAuthentification.swift in Sources */,
+				425689CE2BBFE47500AAA85F /* UserAuthentication.swift in Sources */,
 				422ADB6E2BBAC637004D2F9F /* LoginView.swift in Sources */,
 				422ADB6C2BBAC5F9004D2F9F /* StartView.swift in Sources */,
 				422ADB722BBAE206004D2F9F /* AddCatView.swift in Sources */,

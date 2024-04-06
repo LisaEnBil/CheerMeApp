@@ -10,7 +10,7 @@ import Firebase
 import FirebaseStorage
 
 
-class UserAuthentification: ObservableObject {
+class UserAuthentication: ObservableObject {
     
     func register(email: String, password: String) {
         Auth.auth().createUser(withEmail: email, password: password) {

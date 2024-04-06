@@ -15,13 +15,13 @@ struct SettingsView: View {
         
         VStack {
             Button(action: {
-                UserAuthentification().logout()
+                UserAuthentication().logout()
             }, label: {
                 Text("Logga ut")
             })
             
             Button( action: {
-                UserAuthentification().deleteUserAndAccount()
+                UserAuthentication().deleteUserAndAccount()
             }, label: {
                 Text("Radera konto")
             })

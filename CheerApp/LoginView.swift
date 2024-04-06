@@ -10,7 +10,7 @@ import Firebase
 
 struct LoginView: View {
     
-    let userAuth = UserAuthentification()
+    let userAuth = UserAuthentication()
     
     @State var email = ""
     @State var password = ""
