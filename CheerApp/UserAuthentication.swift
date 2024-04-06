@@ -11,6 +11,8 @@ import FirebaseStorage
 
 
 class UserAuthentication: ObservableObject {
+        
+    @Published var isIncorrect = false
     
     func register(email: String, password: String) {
         Auth.auth().createUser(withEmail: email, password: password) {
@@ -29,13 +31,14 @@ class UserAuthentication: ObservableObject {
             
             if error == nil {
                 print("Login OK")
+                self.isIncorrect = false
             } else {
                 print("Login fail")
+                self.isIncorrect = true
+                                
             }
         }
     }
-    
-    
     
     func logout() {
         let firebaseAuth = Auth.auth()
@@ -104,7 +107,7 @@ class UserAuthentication: ObservableObject {
     
     func deleteUserAndAccount() {
         Task {
-            await UserAuthentification().deleteUser()
+            await UserAuthentication().deleteUser()
         }
     }
     

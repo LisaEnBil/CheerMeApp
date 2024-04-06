@@ -9,14 +9,16 @@ import SwiftUI
 import Firebase
 
 struct LoginView: View {
-    
-    let userAuth = UserAuthentication()
-    
+        
     @State var email = ""
     @State var password = ""
+    @ObservedObject var userAuth = UserAuthentication()
     
     var body: some View {
         VStack {
+            
+            Text(userAuth.isIncorrect ? "Email or Password is incorrect" : "")
+          
             TextField("Email", text: $email )
             
             TextField("Password", text: $password ).textCase(.lowercase)
