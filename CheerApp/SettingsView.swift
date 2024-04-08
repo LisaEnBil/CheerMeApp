@@ -11,9 +11,17 @@ import FirebaseStorage
 
 struct SettingsView: View {
     @Binding var showModal: Bool
+    
+    let user = Auth.auth().currentUser
+    
+    
     var body: some View {
         
         VStack {
+            if let user = user {
+                Text(user.email!).padding()
+            }
+            
             Button(action: {
                 UserAuthentication().logout()
             }, label: {

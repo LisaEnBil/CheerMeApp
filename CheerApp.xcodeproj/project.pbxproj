@@ -69,6 +69,7 @@
 		425689CD2BBFE47400AAA85F /* UserAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthentication.swift; sourceTree = "<group>"; };
 		425689CF2BC00A2800AAA85F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		42A858D62BBAE37700C63B48 /* dandelion.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dandelion.JPG; sourceTree = "<group>"; };
+		42B1299B2BC2858F008FFF7B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +127,7 @@
 		42313A532B92620100453DCF /* CheerApp */ = {
 			isa = PBXGroup;
 			children = (
+				42B1299B2BC2858F008FFF7B /* Info.plist */,
 				422ADB6F2BBAC77A004D2F9F /* GoogleService-Info.plist */,
 				42313A542B92620100453DCF /* CheerApp.swift */,
 				42313A562B92620100453DCF /* ContentView.swift */,
@@ -405,6 +407,9 @@
 				DEVELOPMENT_TEAM = 4JQALNSV6W;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CheerApp/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -434,6 +439,9 @@
 				DEVELOPMENT_TEAM = 4JQALNSV6W;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CheerApp/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
