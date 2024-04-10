@@ -24,9 +24,8 @@ struct ContentView: View {
     var image1: UIImage?
 
     var body: some View {
-        
         NavigationStack {
-
+            
             Button("Add cat") {
                 showAddCatModal = true
             } .sheet(isPresented: $showAddCatModal) {
@@ -35,9 +34,11 @@ struct ContentView: View {
             
             List(cats) { cat in
                 NavigationLink {
-                    // CatView(model: cat)
+                    CatView(model: cat)
+                    
                     
                 } label: {
+                 
                     VStack(alignment: .center) {
                         Image(uiImage: cat.image)
                             .resizable()
@@ -59,15 +60,15 @@ struct ContentView: View {
                 }).sheet(isPresented: $showSettingsModal) {
                     SettingsView(showModal: $showSettingsModal)
                 }
- 
+                
             }
         }.onAppear(){
             loadtodo()
-            loadLibraryCats()
+           loadLibraryCats()
         }
     }
     
-    func loadLibraryCats() {
+     func loadLibraryCats() {
         
         var ref : DatabaseReference!
         ref = Database.database().reference()
@@ -80,71 +81,72 @@ struct ContentView: View {
                 
                 let childsnap = todochild as! DataSnapshot
                 if let theCat = childsnap.value as? [String: Any] {
-  
-                   
-                        let imageRef = storageRef.child("library_cats/" + childsnap.key + ".jpg")
-                        imageRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
-                           
-                            if error != nil {
-                                print("ERROR")
-                            } else {
-      
-                                let tempCat = CatModel(name: theCat["name"] as! String, image: UIImage(data: data!)!)
-                                    //tempCat.image =  UIImage(data: data!)!
-                                cats.append(tempCat)
-      
+                    let imageRef = storageRef.child("library_cats/" + childsnap.key + ".jpg")
+                    let audioRef = storageRef.child("library_cats/" + childsnap.key + ".wav")
+                    
+                    Task {
+                        do {
+                            let imageData = try await imageRef.data(maxSize: 1 * 1024 * 1024)
+                            let imagePlace = UIImage(data: imageData)!
+                          
+                           var audioURL = try await audioRef.downloadURL()
+                            if var components = URLComponents(string: audioURL.absoluteString) {
+                                components.query = nil
+                                audioURL = (components.url)!
+                            
                             }
+                          
+                            let catModel = CatModel(name: theCat["name"] as! String, image: imagePlace, audio: audioURL)
+                            cats.append(catModel)
+                        } catch {
+                            print("Error fetching data: \(error)")
                         }
                     }
                 }
+            }
         })
     }
     
-        func loadtodo() {
-    
-            var ref : DatabaseReference!
-            ref = Database.database().reference()
-    
-            let storage = Storage.storage()
-            let storageRef = storage.reference()
-    
-            let uid = Auth.auth().currentUser!.uid
-    
-            ref.child("user_cat_list").child(uid).getData(completion: {error, snapshot in
-    
-                for todochild in snapshot!.children {
-    
-                    let childsnap = todochild as! DataSnapshot
-    
-                   
-                    if let theCat = childsnap.value as? [String: Any] {
-                        
-                        var name = theCat["name"] as! String
-                        
-                        let imageRef = storageRef.child("images/" + uid + "/" + name + ".png")
-                        
-                        imageRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
-                           
-                            if error != nil {
-                                print("ERROR")
-                            } else {
-      
-                                let tempCat = CatModel(name: theCat["name"] as! String, image: UIImage(data: data!)!)
-                                cats.append(tempCat)
-      
-                            }
+    func loadtodo() {
+        
+        var ref : DatabaseReference!
+        ref = Database.database().reference()
+        
+        let storage = Storage.storage()
+        let storageRef = storage.reference()
+        
+        let uid = Auth.auth().currentUser!.uid
+        
+        ref.child("user_cat_list").child(uid).getData(completion: {error, snapshot in
+            
+            for todochild in snapshot!.children {
+                
+                let childsnap = todochild as! DataSnapshot
+                
+                if let theCat = childsnap.value as? [String: Any] {
+                    
+                    let name = theCat["name"] as! String
+                    
+                    let imageRef = storageRef.child("users/" + uid + "/" + name + "/" + name + ".png")
+                    
+                    let audioRef = storage.reference(withPath: "users/" + uid + "/" + name + "/" + name + ".wav")
+                    Task {
+                        do {
+                            let imageData = try await imageRef.data(maxSize: 1 * 1024 * 1024)
+                            let imagePlace = UIImage(data: imageData)!
+                            let audioURL = try await audioRef.downloadURL()
+                            let catModel = CatModel(name: theCat["name"] as! String, image: imagePlace, audio: audioURL)
+                            cats.append(catModel)
+                        } catch {
+                            print("Error fetching data: \(error)")
                         }
-    
                     }
-    
                 }
-    
-            })
-        }
-    
-    
+            }
+        })
+    }
 }
 
-#Preview {
-    ContentView()
-}
+//#Preview {
+//    ContentView()
+//}

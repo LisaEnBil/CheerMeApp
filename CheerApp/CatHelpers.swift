@@ -15,6 +15,7 @@ struct CatModel: Identifiable {
     let id = UUID()
     var name: String
     var image: UIImage
+    var audio: URL
 }
 
 

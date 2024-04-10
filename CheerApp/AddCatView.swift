@@ -59,7 +59,8 @@ struct AddCatView: View {
                 }
             
             Button(action:{
-                saveCat(addCat: CatModel(name: name, image: image!))
+                let audioFileURL = audioRecorder.getDocumentsDirectory().appendingPathComponent("recording.wav")
+                saveCat(addCat: CatModel(name: name, image: image!, audio: audioFileURL))
                 showModal = false
             }, label: {
                 Text("Save your cat")
@@ -93,14 +94,11 @@ struct AddCatView: View {
         
         let imageData: Data? = image?.jpegData(compressionQuality: 0)
         
-        let audioFileURL = audioRecorder.getDocumentsDirectory().appendingPathComponent("recording.wav")
-        
-        
         let imagesRef = storageRef.child("users/" + uid + "/" + addCat.name + "/" + addCat.name + ".png" )
         let audioRef = storageRef.child("users/" + uid + "/" + addCat.name + "/" + addCat.name + ".wav" )
         
         
-        audioRef.putFile(from: audioFileURL, metadata: nil) { (metadata, error) in
+        audioRef.putFile(from: addCat.audio, metadata: nil) { (metadata, error) in
             if let error = error {
                 print("Error uploading audio file: \(error)")
             } else {
