@@ -47,6 +47,8 @@
 		425689CC2BBEE04E00AAA85F /* IMG_3909.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 425689CB2BBEE04D00AAA85F /* IMG_3909.jpeg */; };
 		425689CE2BBFE47500AAA85F /* UserAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425689CD2BBFE47400AAA85F /* UserAuthentication.swift */; };
 		425689D02BC00A2800AAA85F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425689CF2BC00A2800AAA85F /* SettingsView.swift */; };
+		42A0DCEC2BC4545F00B952F6 /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A0DCEB2BC4545F00B952F6 /* AudioRecorder.swift */; };
+		42A0DCEE2BC676B500B952F6 /* 1010.wav in Resources */ = {isa = PBXBuildFile; fileRef = 42A0DCED2BC676B500B952F6 /* 1010.wav */; };
 		42A858D72BBAE37700C63B48 /* dandelion.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 42A858D62BBAE37700C63B48 /* dandelion.JPG */; };
 /* End PBXBuildFile section */
 
@@ -68,6 +70,8 @@
 		425689CB2BBEE04D00AAA85F /* IMG_3909.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMG_3909.jpeg; sourceTree = "<group>"; };
 		425689CD2BBFE47400AAA85F /* UserAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthentication.swift; sourceTree = "<group>"; };
 		425689CF2BC00A2800AAA85F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		42A0DCEB2BC4545F00B952F6 /* AudioRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
+		42A0DCED2BC676B500B952F6 /* 1010.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 1010.wav; sourceTree = "<group>"; };
 		42A858D62BBAE37700C63B48 /* dandelion.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dandelion.JPG; sourceTree = "<group>"; };
 		42B1299B2BC2858F008FFF7B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -133,6 +137,7 @@
 				42313A562B92620100453DCF /* ContentView.swift */,
 				42313A642B9268CA00453DCF /* torsten.jpg */,
 				425689CB2BBEE04D00AAA85F /* IMG_3909.jpeg */,
+				42A0DCED2BC676B500B952F6 /* 1010.wav */,
 				42A858D62BBAE37700C63B48 /* dandelion.JPG */,
 				42313A582B92620400453DCF /* Assets.xcassets */,
 				42313A5A2B92620400453DCF /* Preview Content */,
@@ -143,6 +148,7 @@
 				4229F3002BBD450100A7F365 /* CatHelpers.swift */,
 				425689CD2BBFE47400AAA85F /* UserAuthentication.swift */,
 				425689CF2BC00A2800AAA85F /* SettingsView.swift */,
+				42A0DCEB2BC4545F00B952F6 /* AudioRecorder.swift */,
 			);
 			path = CheerApp;
 			sourceTree = "<group>";
@@ -251,6 +257,7 @@
 				42313A652B9268CA00453DCF /* torsten.jpg in Resources */,
 				42A858D72BBAE37700C63B48 /* dandelion.JPG in Resources */,
 				42313A592B92620400453DCF /* Assets.xcassets in Resources */,
+				42A0DCEE2BC676B500B952F6 /* 1010.wav in Resources */,
 				425689CC2BBEE04E00AAA85F /* IMG_3909.jpeg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -266,6 +273,7 @@
 				42313A552B92620100453DCF /* CheerApp.swift in Sources */,
 				42313A702B95114C00453DCF /* CatView.swift in Sources */,
 				425689D02BC00A2800AAA85F /* SettingsView.swift in Sources */,
+				42A0DCEC2BC4545F00B952F6 /* AudioRecorder.swift in Sources */,
 				425689CE2BBFE47500AAA85F /* UserAuthentication.swift in Sources */,
 				422ADB6E2BBAC637004D2F9F /* LoginView.swift in Sources */,
 				422ADB6C2BBAC5F9004D2F9F /* StartView.swift in Sources */,

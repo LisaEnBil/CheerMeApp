@@ -22,9 +22,7 @@ struct ContentView: View {
     @State var cats : [CatModel] = []
     
     var image1: UIImage?
-    
-    
-    
+
     var body: some View {
         
         NavigationStack {
