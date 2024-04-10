@@ -32,7 +32,6 @@ struct AddCatView: View {
                     Task {
                         if let data = try? await selectedItem?.loadTransferable(type: Data.self) {
                             image = UIImage(data: data)
-                            //saveImageToDocumentsDirectory(image: image)
                         }
                         print("Failed to load the image")
                     }
@@ -46,7 +45,8 @@ struct AddCatView: View {
             }
                 Button(action: {
                     if audioRecorder.isRecording == true {
-                        self.audioRecorder.stopRecording()
+                       self.audioRecorder.stopRecording()
+                   
                     } else {
                         self.audioRecorder.startRecording()
  
@@ -93,19 +93,37 @@ struct AddCatView: View {
         
         let imageData: Data? = image?.jpegData(compressionQuality: 0)
         
-        let imagesRef = storageRef.child("images/" + uid + "/" + addCat.name + ".png" )
+        let audioFileURL = audioRecorder.getDocumentsDirectory().appendingPathComponent("recording.wav")
+        
+        
+        let imagesRef = storageRef.child("users/" + uid + "/" + addCat.name + "/" + addCat.name + ".png" )
+        let audioRef = storageRef.child("users/" + uid + "/" + addCat.name + "/" + addCat.name + ".wav" )
+        
+        
+        audioRef.putFile(from: audioFileURL, metadata: nil) { (metadata, error) in
+            if let error = error {
+                print("Error uploading audio file: \(error)")
+            } else {
+                print("Audio file uploaded successfully")
+                
+                audioRef.downloadURL { (url, error) in
+                    if let downloadURL = url {
+                        print("Audio file available at: \(downloadURL)")
+             
+                    }
+                }
+            }
+        }
         
         imagesRef.putData((imageData)!, metadata: nil) { (metadata, error) in
             guard let metadata = metadata else {
                 // Uh-oh, an error occurred!
                 return
             }
-            // Metadata contains file metadata such as size, content-type.
             let size = metadata.size
-            // You can also access to download URL after upload.
+            
             imagesRef.downloadURL { (url, error) in
                 guard url != nil else {
-                    // Uh-oh, an error occurred!
                     return
                 }
             }

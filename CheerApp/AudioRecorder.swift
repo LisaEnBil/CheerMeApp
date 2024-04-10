@@ -63,7 +63,7 @@ class AudioRecorder: NSObject, ObservableObject, AVAudioRecorderDelegate {
         }
     }
     
-    func stopRecording() {
+    func stopRecording(){
         audioRecorder?.stop()
         isRecording = false
     }
