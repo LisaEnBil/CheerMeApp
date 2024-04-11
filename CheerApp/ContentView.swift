@@ -68,34 +68,29 @@ struct ContentView: View {
         }
     }
     
-     func loadLibraryCats() {
-        
-        var ref : DatabaseReference!
+    func loadLibraryCats() {
+        var ref: DatabaseReference!
         ref = Database.database().reference()
-        
+
         let storage = Storage.storage()
         let storageRef = storage.reference()
-        
-        ref.child("library_cats").getData(completion: {error, snapshot in
+
+        ref.child("library_cats").getData(completion: { error, snapshot in
             for todochild in snapshot!.children {
-                
                 let childsnap = todochild as! DataSnapshot
                 if let theCat = childsnap.value as? [String: Any] {
                     let imageRef = storageRef.child("library_cats/" + childsnap.key + ".jpg")
                     let audioRef = storageRef.child("library_cats/" + childsnap.key + ".wav")
-                    
+
                     Task {
                         do {
                             let imageData = try await imageRef.data(maxSize: 1 * 1024 * 1024)
                             let imagePlace = UIImage(data: imageData)!
-                          
-                           var audioURL = try await audioRef.downloadURL()
-                            if var components = URLComponents(string: audioURL.absoluteString) {
-                                components.query = nil
-                                audioURL = (components.url)!
-                            
-                            }
-                          
+
+                            let audioData = try await audioRef.data(maxSize: 100 * 1024 * 1024) // Increase the max size if needed
+                            let audioURL = URL(fileURLWithPath: NSTemporaryDirectory() + "\(childsnap.key).wav")
+                            try audioData.write(to: audioURL)
+
                             let catModel = CatModel(name: theCat["name"] as! String, image: imagePlace, audio: audioURL)
                             cats.append(catModel)
                         } catch {
@@ -134,7 +129,9 @@ struct ContentView: View {
                         do {
                             let imageData = try await imageRef.data(maxSize: 1 * 1024 * 1024)
                             let imagePlace = UIImage(data: imageData)!
-                            let audioURL = try await audioRef.downloadURL()
+                            let audioData = try await audioRef.data(maxSize: 100 * 1024 * 1024) // Increase the max size if needed
+                            let audioURL = URL(fileURLWithPath: NSTemporaryDirectory() + "\(name).wav")
+                            try audioData.write(to: audioURL)
                             let catModel = CatModel(name: theCat["name"] as! String, image: imagePlace, audio: audioURL)
                             cats.append(catModel)
                         } catch {

@@ -29,24 +29,29 @@ struct CatView: View {
                     .onEnded { _ in
                         self.isDragging = false
                         player?.stop()
-            
+                        
                     }
             )
             .onAppear {
+                
                 initializeAudioPlayer()
+                
+                
             }
     }
     
-    private func initializeAudioPlayer() {
-
+    func initializeAudioPlayer()  {
+        
         do {
-            player = try AVAudioPlayer(contentsOf: model.audio)
-            player?.prepareToPlay()
-        } catch {
-            print("Failed to initialize the audio player: \(error)")
+            if player == nil {
+                player = try AVAudioPlayer(contentsOf: model.audio)
+                player?.prepareToPlay()
+            }
+            
+        }catch {
+            print("Error playing audio: \(error)")
         }
     }
-    
 }
 
 //struct AudioPlayerView_Previews: PreviewProvider {
