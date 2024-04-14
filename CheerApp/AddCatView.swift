@@ -17,11 +17,12 @@ struct AddCatView: View {
     @State private var selectedItem: PhotosPickerItem?
     @Binding var image: UIImage?
     @State var name: String
+    @State private var hasRecorded = false
     
     
     @Binding var cats: [CatModel]
     
-    @ObservedObject var audioRecorder = AudioRecorder()
+    @ObservedObject var audioRecorder = AudioManager()
     
     var body: some View {
         VStack {
@@ -43,20 +44,21 @@ struct AddCatView: View {
                     .scaledToFit()
                     .frame(width: 100.0, height: 100.0)
             }
-                Button(action: {
-                    if audioRecorder.isRecording == true {
-                       self.audioRecorder.stopRecording()
-                   
-                    } else {
-                        self.audioRecorder.startRecording()
- 
-                    }
-                }) {
-                    Image(systemName: audioRecorder.isRecording == true ? "stop.circle" : "mic.circle")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 100, height: 100)
+            Button(action: {
+                if audioRecorder.isRecording == true {
+                    self.audioRecorder.stopRecording()
+                    hasRecorded = true
+                    
+                } else {
+                    self.audioRecorder.startRecording()
+                    
                 }
+            }) {
+                Image(systemName: audioRecorder.isRecording == true ? "stop.circle" : "mic.circle")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 100, height: 100)
+            }
             
             Button(action:{
                 let audioFileURL = audioRecorder.getDocumentsDirectory().appendingPathComponent("recording.wav")
@@ -64,7 +66,7 @@ struct AddCatView: View {
                 showModal = false
             }, label: {
                 Text("Save your cat")
-            })
+            }).disabled(!hasRecorded)
             
             Button(action:{
                 showModal = false
@@ -100,6 +102,19 @@ struct AddCatView: View {
         let audioRef = storageRef.child("users/" + uid + "/" + id + "/" + addCat.name + ".wav" )
         
         
+        let audioAsset = AVURLAsset(url: addCat.audio)
+        let duration = audioAsset.duration.seconds
+        
+        print("addCat", addCat)
+        if duration == 0 {
+            
+            print("The recorded audio file is empty.")
+        } else {
+            // The recorded audio file is not empty
+            print("The recorded audio file has a duration of \(duration) seconds.")
+        }
+        
+        
         audioRef.putFile(from: addCat.audio, metadata: nil) { (metadata, error) in
             if let error = error {
                 print("Error uploading audio file: \(error)")
@@ -109,7 +124,7 @@ struct AddCatView: View {
                 audioRef.downloadURL { (url, error) in
                     if let downloadURL = url {
                         print("Audio file available at: \(downloadURL)")
-             
+                        
                     }
                 }
             }
@@ -117,7 +132,7 @@ struct AddCatView: View {
         
         imagesRef.putData((imageData)!, metadata: nil) { (metadata, error) in
             guard let metadata = metadata else {
-                // Uh-oh, an error occurred!
+                
                 return
             }
             imagesRef.downloadURL { (url, error) in
@@ -135,13 +150,6 @@ struct AddCatView: View {
         
         ref.child("user_cat_list").child(uid).child(id).setValue(cat)
         
-        //let newCat = CatModel(name: addCat.name, image: $image)
-        // self.addCat(newCat)
-        
+        deleteRecording()
     }
-    
-    
-    
-    
-    
 }

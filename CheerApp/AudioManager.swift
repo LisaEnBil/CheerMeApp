@@ -10,21 +10,22 @@ import Foundation
 import AVFoundation
 
 
-class AudioRecorder: NSObject, ObservableObject, AVAudioRecorderDelegate {
+
+class AudioManager: NSObject, ObservableObject, AVAudioRecorderDelegate {
     @Published var audioRecorder: AVAudioRecorder?
     var audioPlayer: AVAudioPlayer?
     
     @Published var isRecording = false
-    
+
     
     func setupAudioSession()  {
         do {
-               let audioSession = AVAudioSession.sharedInstance()
-               try audioSession.setCategory(.playAndRecord, mode: .default)
-               try audioSession.setActive(true)
-           } catch {
-               print("Error setting up audio session: \(error.localizedDescription)")
-           }
+            let audioSession = AVAudioSession.sharedInstance()
+            try audioSession.setCategory(.playAndRecord, mode: .default)
+            try audioSession.setActive(true)
+        } catch {
+            print("Error setting up audio session: \(error.localizedDescription)")
+        }
     }
     
     
@@ -49,15 +50,16 @@ class AudioRecorder: NSObject, ObservableObject, AVAudioRecorderDelegate {
             audioRecorder = try AVAudioRecorder(url: audioFileURL, settings: settings)
             audioRecorder?.delegate = self
             audioRecorder?.record()
-          
+
             if (audioRecorder?.prepareToRecord() == false ){
                 print("NOT ready to record")
             }
-           
+            
             
             if audioRecorder?.isRecording == true {
                 isRecording = true
             }
+            
         } catch let error {
             print("Error starting recording:", error.localizedDescription)
         }
@@ -71,5 +73,16 @@ class AudioRecorder: NSObject, ObservableObject, AVAudioRecorderDelegate {
     func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return paths[0]
+    }
+    
+    func deleteRecording() {
+        
+        let audioFileURL = getDocumentsDirectory().appendingPathComponent("recording.wav")
+        do {
+            try FileManager.default.removeItem(at: audioFileURL)
+        }
+        catch {
+            print("didn't work deleting it")
+        }
     }
 }
