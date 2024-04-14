@@ -84,6 +84,8 @@ struct AddCatView: View {
         
         let uid = Auth.auth().currentUser!.uid
         
+        let id = UUID().uuidString
+        
         if addCat.name == "" {
             return
         }
@@ -94,8 +96,8 @@ struct AddCatView: View {
         
         let imageData: Data? = image?.jpegData(compressionQuality: 0)
         
-        let imagesRef = storageRef.child("users/" + uid + "/" + addCat.name + "/" + addCat.name + ".png" )
-        let audioRef = storageRef.child("users/" + uid + "/" + addCat.name + "/" + addCat.name + ".wav" )
+        let imagesRef = storageRef.child("users/" + uid + "/" + id + "/" + addCat.name + ".png" )
+        let audioRef = storageRef.child("users/" + uid + "/" + id + "/" + addCat.name + ".wav" )
         
         
         audioRef.putFile(from: addCat.audio, metadata: nil) { (metadata, error) in
@@ -118,8 +120,6 @@ struct AddCatView: View {
                 // Uh-oh, an error occurred!
                 return
             }
-            let size = metadata.size
-            
             imagesRef.downloadURL { (url, error) in
                 guard url != nil else {
                     return
@@ -133,7 +133,7 @@ struct AddCatView: View {
         
         cat["name"] = addCat.name
         
-        ref.child("user_cat_list").child(uid).childByAutoId().setValue(cat)
+        ref.child("user_cat_list").child(uid).child(id).setValue(cat)
         
         //let newCat = CatModel(name: addCat.name, image: $image)
         // self.addCat(newCat)
