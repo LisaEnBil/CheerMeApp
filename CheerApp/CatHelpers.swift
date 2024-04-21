@@ -11,8 +11,8 @@ import Firebase
 import FirebaseStorage
 
 
-struct CatModel: Identifiable {
-    let id = UUID()
+struct CatModel: Hashable {
+    let id: String
     var name: String
     var image: UIImage
     var audio: URL
@@ -41,6 +41,7 @@ class CatHelpers: ObservableObject {
                 if let theCat = childsnap.value as? [String: Any] {
                     
                     let name = theCat["name"] as! String
+                    let id = childsnap.key
                     let imageRef = dbRef == "library_cats" ? storageRef.child("library_cats/\(childsnap.key).jpg") : storageRef.child("users/\(uid)/\(childsnap.key)/\(name).png")
                     let audioRef = dbRef == "library_cats" ? storageRef.child("library_cats/\(childsnap.key).wav") : storage.reference(withPath: "users/\(uid)/\(childsnap.key)/\(name).wav")
 
@@ -52,7 +53,7 @@ class CatHelpers: ObservableObject {
 
                             let audioURL = dbRef == "library_cats" ? URL(fileURLWithPath: NSTemporaryDirectory() + "\(childsnap.key).wav") : URL(fileURLWithPath: NSTemporaryDirectory() + "\(name).wav")
                             try audioData.write(to: audioURL)
-                            let catModel = CatModel(name: name, image: imagePlace, audio: audioURL)
+                            let catModel = CatModel(id:id, name: name, image: imagePlace, audio: audioURL)
                             self.cats.append(catModel)
                         } catch {
                             print("Error fetching data: \(error)")
@@ -61,6 +62,80 @@ class CatHelpers: ObservableObject {
                 }
             }
         })
+    }
+    
+    func deleteCat() async  {
+       // let user = Auth.auth().currentUser
+        
+        let uid = Auth.auth().currentUser!.uid
+        
+        
+        var ref: DatabaseReference!
+        ref = Database.database().reference()
+        
+        let storage = Storage.storage()
+        let folderRef = storage.reference(withPath: "users/" + uid)
+        
+        
+        ref.child("user_cat_list").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+            for todochild in snapshot.children {
+                let childsnap = todochild as! DataSnapshot
+                
+                print(childsnap)
+                
+            }
+        })
+                                                                
+
+        
+       
+        
+//        let desertRef = folderRef.child("desert.jpg")
+//
+//        do {
+//          // Delete the file
+//          try await desertRef.delete()
+//        } catch {
+//          // ...
+//        }
+
+        
+//        folderRef.listAll { (result, error) in
+//            if let error = error {
+//                print("Error listing files in folder: \(error.localizedDescription)")
+//                return
+//            }
+//            
+//            // Delete each file in the folder
+//            let deleteGroup = DispatchGroup()
+//            for item in result!.items {
+//                deleteGroup.enter()
+//                item.delete { error in
+//                    if let error = error {
+//                        print("Error deleting file: \(error.localizedDescription)")
+//                    }
+//                    deleteGroup.leave()
+//                }
+//            }
+//            
+//            // Wait for all files to be deleted
+//            deleteGroup.notify(queue: .main) {
+//                print("Folder and all files deleted successfully")
+//            }
+//        }
+        
+       // ref = Database.database().reference()
+        
+//        
+//        do {
+//            try await ref.child("user_cat_list").child(uid).removeValue()
+//        } catch let error {
+//            print("Error deleting data", error)
+//        }
+//        
+
+        
+        
     }
 
     

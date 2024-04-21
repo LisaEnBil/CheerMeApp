@@ -25,6 +25,7 @@ struct CatView: View {
                     .onChanged { _ in
                         self.isDragging = true
                         player?.play()
+                        print(model)
                     }
                     .onEnded { _ in
                         self.isDragging = false

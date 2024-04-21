@@ -16,8 +16,11 @@ struct ContentView: View {
     @State private var showAddCatModal = false
     @State private var showSettingsModal = false
     @State var image: UIImage?
+   
     
     @ObservedObject var catHelpers = CatHelpers()
+    @ObservedObject var audioRecorder = AudioManager()
+  
     
     var image1: UIImage?
     
@@ -27,10 +30,10 @@ struct ContentView: View {
             Button("Add cat") {
                 showAddCatModal = true
             } .sheet(isPresented: $showAddCatModal) {
-                AddCatView(showModal: $showAddCatModal, image: $image, name: "", cats: $catHelpers.cats)
+                AddCatView(showModal: $showAddCatModal, image: $image, name: "", id: "", cats: $catHelpers.cats)
             }
             
-            List(catHelpers.cats) { cat in
+            List(catHelpers.cats, id: \.self) { cat in
                 NavigationLink {
                     CatView(model: cat)
                     
@@ -41,7 +44,18 @@ struct ContentView: View {
                         Image(uiImage: cat.image)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(height: 200)
+                            .frame(height: 200).swipeActions(edge: .trailing) {
+                                Button(action: {
+                                    Task {
+                                        await catHelpers.deleteCat()
+                                    }
+                                   
+                                },
+                                 label: {
+                                    Label("Delete", systemImage: "trash")
+                                })
+                              
+                            }
                         Text(cat.name)
                         
                     }
@@ -63,6 +77,7 @@ struct ContentView: View {
         }.onAppear(){
             catHelpers.loadStoredCats(dbRef: "library_cats" )
             catHelpers.loadStoredCats(dbRef: "user_cat_list" )
+            audioRecorder.deleteRecording()
         }
     }
 }

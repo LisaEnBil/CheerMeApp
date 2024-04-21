@@ -18,6 +18,7 @@ struct AddCatView: View {
     @Binding var image: UIImage?
     @State var name: String
     @State private var hasRecorded = false
+    @State var id: String
     
     
     @Binding var cats: [CatModel]
@@ -62,7 +63,7 @@ struct AddCatView: View {
             
             Button(action:{
                 let audioFileURL = audioRecorder.getDocumentsDirectory().appendingPathComponent("recording.wav")
-                saveCat(addCat: CatModel(name: name, image: image!, audio: audioFileURL))
+                saveCat(addCat: CatModel(id: id, name: name, image: image!, audio: audioFileURL))
                 showModal = false
             }, label: {
                 Text("Save your cat")
@@ -105,7 +106,6 @@ struct AddCatView: View {
         let audioAsset = AVURLAsset(url: addCat.audio)
         let duration = audioAsset.duration.seconds
         
-        print("addCat", addCat)
         if duration == 0 {
             
             print("The recorded audio file is empty.")
@@ -147,9 +147,9 @@ struct AddCatView: View {
         var cat = [String: Any]()
         
         cat["name"] = addCat.name
+        cat["id"] = id
         
         ref.child("user_cat_list").child(uid).child(id).setValue(cat)
-        
-        deleteRecording()
+      
     }
 }

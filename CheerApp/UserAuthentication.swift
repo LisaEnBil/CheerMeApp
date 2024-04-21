@@ -58,7 +58,7 @@ class UserAuthentication: ObservableObject {
         var ref : DatabaseReference!
         
         let storage = Storage.storage()
-        let folderRef = storage.reference(withPath: "images/" + uid)
+        let folderRef = storage.reference(withPath: "users/" + uid)
         
         folderRef.listAll { (result, error) in
             if let error = error {
