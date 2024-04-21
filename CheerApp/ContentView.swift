@@ -45,9 +45,9 @@ struct ContentView: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(height: 200).swipeActions(edge: .trailing) {
-                                Button(action: {
+                                Button(role: .destructive, action: {
                                     Task {
-                                        await catHelpers.deleteCat()
+                                        await catHelpers.deleteCat(id: cat.id)
                                     }
                                    
                                 },

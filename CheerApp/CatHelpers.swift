@@ -64,78 +64,28 @@ class CatHelpers: ObservableObject {
         })
     }
     
-    func deleteCat() async  {
-       // let user = Auth.auth().currentUser
-        
+    func deleteCat(id: String) async  {
         let uid = Auth.auth().currentUser!.uid
-        
-        
+
         var ref: DatabaseReference!
         ref = Database.database().reference()
         
         let storage = Storage.storage()
-        let folderRef = storage.reference(withPath: "users/" + uid)
-        
-        
-        ref.child("user_cat_list").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
-            for todochild in snapshot.children {
-                let childsnap = todochild as! DataSnapshot
-                
-                print(childsnap)
-                
-            }
-        })
-                                                                
+        let folderRef = storage.reference(withPath: "users/" + uid + "/" + id)
 
+        do {
+          // Delete the file
+          try await folderRef.delete()
+        } catch {
+          // ...
+        }
         
-       
-        
-//        let desertRef = folderRef.child("desert.jpg")
-//
-//        do {
-//          // Delete the file
-//          try await desertRef.delete()
-//        } catch {
-//          // ...
-//        }
-
-        
-//        folderRef.listAll { (result, error) in
-//            if let error = error {
-//                print("Error listing files in folder: \(error.localizedDescription)")
-//                return
-//            }
-//            
-//            // Delete each file in the folder
-//            let deleteGroup = DispatchGroup()
-//            for item in result!.items {
-//                deleteGroup.enter()
-//                item.delete { error in
-//                    if let error = error {
-//                        print("Error deleting file: \(error.localizedDescription)")
-//                    }
-//                    deleteGroup.leave()
-//                }
-//            }
-//            
-//            // Wait for all files to be deleted
-//            deleteGroup.notify(queue: .main) {
-//                print("Folder and all files deleted successfully")
-//            }
-//        }
-        
-       // ref = Database.database().reference()
-        
-//        
-//        do {
-//            try await ref.child("user_cat_list").child(uid).removeValue()
-//        } catch let error {
-//            print("Error deleting data", error)
-//        }
-//        
-
-        
-        
+        do {
+            try await ref.child("user_cat_list").child(uid).child(id).removeValue()
+        } catch let error {
+            print("Error deleting data", error)
+        }
+ 
     }
 
     
