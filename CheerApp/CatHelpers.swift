@@ -54,7 +54,9 @@ class CatHelpers: ObservableObject {
                             let audioURL = dbRef == "library_cats" ? URL(fileURLWithPath: NSTemporaryDirectory() + "\(childsnap.key).wav") : URL(fileURLWithPath: NSTemporaryDirectory() + "\(name).wav")
                             try audioData.write(to: audioURL)
                             let catModel = CatModel(id:id, name: name, image: imagePlace, audio: audioURL)
-                            self.cats.append(catModel)
+                            DispatchQueue.main.async {
+                                self.cats.append(catModel)
+                            }
                         } catch {
                             print("Error fetching data: \(error)")
                         }
