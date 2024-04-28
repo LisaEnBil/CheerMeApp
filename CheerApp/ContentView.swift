@@ -11,79 +11,102 @@ import PhotosUI
 import Firebase
 import FirebaseStorage
 
+struct CatListRow<Destination: View>: View {
+    let cat: CatModel
+    let destination: () -> Destination
+    let onDelete: () async -> Void
+    
+    var body: some View {
+        NavigationLink {
+            destination()
+        } label: {
+            HStack(alignment: .top, spacing: 20) {
+                Image(uiImage: cat.image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(height: 200)
+                    .swipeActions(edge: .trailing) {
+                        Button(role: .destructive, action: {
+                            Task {
+                                await onDelete()
+                            }
+                        }, label: {
+                            Label("Delete", systemImage: "trash")
+                        })
+                    }
+                
+                VStack(alignment: .leading) {
+                    Text("Name:")
+                        .bold()
+                    Text(cat.name)
+                }
+                Spacer()
+            }
+            .padding()
+            .foregroundStyle(pink)
+            .background(concrete)
+        }
+        .listRowBackground(Color.gray)
+        .listRowSeparatorTint(pink)
+    }
+}
+
 struct ContentView: View {
     
     @State private var showAddCatModal = false
     @State private var showSettingsModal = false
     @State var image: UIImage?
     
-    
     @ObservedObject var catHelpers = CatHelpers()
     @ObservedObject var audioRecorder = AudioManager()
     
-    
-    var image1: UIImage?
-    
     var body: some View {
         NavigationStack {
-            
-            Button("Add cat") {
-                showAddCatModal = true
-            } .sheet(isPresented: $showAddCatModal) {
-                AddCatView(showModal: $showAddCatModal, image: $image, name: "", id: "", cats: $catHelpers.cats)
-            }
-            
             List(catHelpers.cats, id: \.self) { cat in
-                NavigationLink {
+                CatListRow(cat: cat, destination: {
                     CatView(model: cat)
-                    
-                    
-                } label: {
-                    
-                    VStack(alignment: .center) {
-                        Image(uiImage: cat.image)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(height: 200).swipeActions(edge: .trailing) {
-                                Button(role: .destructive, action: {
-                                    Task {
-                                        await catHelpers.deleteCat(id: cat.id)
-                                    }
-                                    
-                                },
-                                       label: {
-                                    Label("Delete", systemImage: "trash")
-                                })
-                                
-                            }
-                        Text(cat.name)
-                        
+                }) {
+                    await catHelpers.deleteCat(id: cat.id)
+                }
+            }
+            .listStyle(.plain)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("Add cat") {
+                        showAddCatModal = true
+                    } 
+                    .sheet(isPresented: $showAddCatModal) {
+                        AddCatView(showModal: $showAddCatModal, image: $image, name: "", id: "", cats: $catHelpers.cats)
+                    }
+                }
+                ToolbarItem(placement: .principal) {
+                    Text("Home")
+                        .foregroundStyle(.white)
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(action: {
+                        showSettingsModal = true
+                    }){
+                        Image(systemName: "gearshape")
+                    }
+                    .sheet(isPresented: $showSettingsModal) {
+                        SettingsView(showModal: $showSettingsModal)
                     }
                 }
             }
-            .navigationTitle("Home")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                
-                Button(action: {
-                    showSettingsModal = true
-                }, label: {
-                    Image(systemName: "gearshape").foregroundColor(pink)
-                }).sheet(isPresented: $showSettingsModal) {
-                    SettingsView(showModal: $showSettingsModal)
-                }
-                
-            }
-            .toolbarColorScheme(.dark, for: .navigationBar)
-            
-        }.onAppear(){
+            .toolbarBackground(.visible, for: .navigationBar)
+            .toolbarBackground(concrete)
+        }
+        .onAppear(){
             catHelpers.loadStoredCats(dbRef: "library_cats" )
             catHelpers.loadStoredCats(dbRef: "user_cat_list" )
             audioRecorder.deleteRecording()
-        }.background(concrete)
+        }
+        .tint(pink)
     }
 }
 
-//#Preview {
-//    ContentView()
-//}
+#Preview {
+    ContentView()
+}
