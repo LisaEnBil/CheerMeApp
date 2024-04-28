@@ -16,11 +16,11 @@ struct ContentView: View {
     @State private var showAddCatModal = false
     @State private var showSettingsModal = false
     @State var image: UIImage?
-   
+    
     
     @ObservedObject var catHelpers = CatHelpers()
     @ObservedObject var audioRecorder = AudioManager()
-  
+    
     
     var image1: UIImage?
     
@@ -49,12 +49,12 @@ struct ContentView: View {
                                     Task {
                                         await catHelpers.deleteCat(id: cat.id)
                                     }
-                                   
+                                    
                                 },
-                                 label: {
+                                       label: {
                                     Label("Delete", systemImage: "trash")
                                 })
-                              
+                                
                             }
                         Text(cat.name)
                         
@@ -68,17 +68,19 @@ struct ContentView: View {
                 Button(action: {
                     showSettingsModal = true
                 }, label: {
-                    Image(systemName: "gearshape")
+                    Image(systemName: "gearshape").foregroundColor(pink)
                 }).sheet(isPresented: $showSettingsModal) {
                     SettingsView(showModal: $showSettingsModal)
                 }
                 
             }
+            .toolbarColorScheme(.dark, for: .navigationBar)
+            
         }.onAppear(){
             catHelpers.loadStoredCats(dbRef: "library_cats" )
             catHelpers.loadStoredCats(dbRef: "user_cat_list" )
             audioRecorder.deleteRecording()
-        }
+        }.background(concrete)
     }
 }
 
