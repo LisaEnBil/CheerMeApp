@@ -34,10 +34,7 @@ struct CatView: View {
                     }
             )
             .onAppear {
-                
                 initializeAudioPlayer()
-                
-                
             }
     }
     
