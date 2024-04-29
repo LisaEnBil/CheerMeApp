@@ -27,7 +27,11 @@ struct AddCatView: View {
     
     var body: some View {
         VStack {
-            TextField("CatsName", text: $name )
+            Spacer()
+            TextField("Your cat's name here", text: $name ).background(.white)
+            
+            Spacer()
+       
             PhotosPicker("Select an image", selection: $selectedItem, matching: .images)
                 .onChange(of: selectedItem) {
                     
@@ -37,7 +41,7 @@ struct AddCatView: View {
                         }
                         print("Failed to load the image")
                     }
-                }
+                }.padding().modifier(ButtonStyle())
             
             if let image {
                 Image(uiImage: image)
@@ -45,6 +49,9 @@ struct AddCatView: View {
                     .scaledToFit()
                     .frame(width: 100.0, height: 100.0)
             }
+
+            Spacer()
+            
             Button(action: {
                 if audioRecorder.isRecording == true {
                     self.audioRecorder.stopRecording()
@@ -58,25 +65,32 @@ struct AddCatView: View {
                 Image(systemName: audioRecorder.isRecording == true ? "stop.circle" : "mic.circle")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: 100, height: 100)
+                    .frame(width: 50, height: 50)
             }
+            
+            Spacer()
             
             Button(action:{
                 let audioFileURL = audioRecorder.getDocumentsDirectory().appendingPathComponent("recording.wav")
                 saveCat(addCat: CatModel(id: id, name: name, image: image!, audio: audioFileURL))
                 showModal = false
             }, label: {
-                Text("Save your cat")
-            }).disabled(!hasRecorded)
+                Text("Save your cat").foregroundStyle(!hasRecorded ? .gray : pink)
+            }).disabled(!hasRecorded || image == nil).modifier(ButtonStyle())
             
             Button(action:{
+                image = nil
                 showModal = false
+                
             }, label: {
                 Text("Stäng")
-            })
+            }).modifier(ButtonStyle())
             
         }
         .padding()
+        .frame(maxHeight: .infinity)
+        .background(concrete)
+        
         
     }
     func addCat(_ cat: CatModel) {
@@ -131,7 +145,7 @@ struct AddCatView: View {
         }
         
         imagesRef.putData((imageData)!, metadata: nil) { (metadata, error) in
-            guard let metadata = metadata else {
+            guard metadata != nil else {
                 
                 return
             }
@@ -150,6 +164,6 @@ struct AddCatView: View {
         cat["id"] = id
         
         ref.child("user_cat_list").child(uid).child(id).setValue(cat)
-      
+        
     }
 }
