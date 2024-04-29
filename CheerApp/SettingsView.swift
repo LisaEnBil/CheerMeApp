@@ -11,6 +11,7 @@ import FirebaseStorage
 
 struct SettingsView: View {
     @Binding var showModal: Bool
+    @State private var isShowingPopover = false
     
     let user = Auth.auth().currentUser
     
@@ -29,18 +30,58 @@ struct SettingsView: View {
                 }, label: {
                     Text("Logga ut").foregroundColor(pink)
                 })   .modifier(ListItemAction())
+                
+                
+                Button("Delete account") {
+                          self.isShowingPopover = true
+                      }
+                      .popover(isPresented: $isShowingPopover) {
+                          
+                          VStack {
+                              Text("Are you sure you want to delete your account?")
+                                  .foregroundColor(.white)
+                                  .font(.title2)
+                                  .padding()
+                              
+                              HStack {
+                                  
+                                  Spacer()
+                                  
+                                  Button( action: {
+                                      self.isShowingPopover = false
+                                  }, label: {
+                                      Text("No").foregroundColor(pink).font(.title2)
+                                  })   .modifier(ListItemAction())
+                                      .padding()
+                                  
+                                  Spacer()
+                                  
+                                  Button( action: {
+                                      UserAuthentication().deleteUserAndAccount()
+                                  }, label: {
+                                      Text("Yes").foregroundColor(pink).font(.title2)
+                                  })   .modifier(ListItemAction())
+                                  
+                                  Spacer()
+                                  
+                              }
+                              Spacer()
+                          }.frame(maxWidth: .infinity, maxHeight: .infinity).background(concrete)
+                       
+                      }.modifier(ListItemAction()).foregroundColor(pink)
           
-                Button( action: {
-                    UserAuthentication().deleteUserAndAccount()
-                }, label: {
-                    Text("Radera konto").foregroundColor(pink)
-                })   .modifier(ListItemAction())
-    
+//                Button( action: {
+//                    UserAuthentication().deleteUserAndAccount()
+//                }, label: {
+//                    Text("Radera konto").foregroundColor(pink)
+//                })   .modifier(ListItemAction())
+//    
                 Button( action: {
                     showModal = false
                 }, label: {
                     Text("Stäng").foregroundColor(pink)
                 }).modifier(ListItemAction())
+                
             }
             .listStyle(.plain)
         
