@@ -11,6 +11,7 @@ import PhotosUI
 import Firebase
 import FirebaseStorage
 
+
 struct CatListRow<Destination: View>: View {
     let cat: CatModel
     let destination: () -> Destination
@@ -61,6 +62,7 @@ struct ContentView: View {
     @ObservedObject var audioRecorder = AudioManager()
     
     var body: some View {
+   
         NavigationStack {
             List(catHelpers.cats, id: \.self) { cat in
                 CatListRow(cat: cat, destination: {
@@ -71,30 +73,7 @@ struct ContentView: View {
             }
             .listStyle(.plain)
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button("Add cat") {
-                        showAddCatModal = true
-                    } 
-                    .sheet(isPresented: $showAddCatModal) {
-                        AddCatView(showModal: $showAddCatModal, image: $image, name: "", id: "", cats: $catHelpers.cats)
-                    }
-                }
-                ToolbarItem(placement: .principal) {
-                    Text("Home")
-                        .foregroundStyle(.white)
-                }
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: {
-                        showSettingsModal = true
-                    }){
-                        Image(systemName: "gearshape")
-                    }
-                    .sheet(isPresented: $showSettingsModal) {
-                        SettingsView(showModal: $showSettingsModal)
-                    }
-                }
-            }
+            .toolbar(content: toolbarContent)
             .toolbarBackground(.visible, for: .navigationBar)
             .toolbarBackground(concrete)
         }
@@ -104,7 +83,37 @@ struct ContentView: View {
             audioRecorder.deleteRecording()
         }
         .tint(pink)
+        
     }
+    
+    @ToolbarContentBuilder
+    func toolbarContent() -> some ToolbarContent{
+        
+        ToolbarItem(placement: .topBarLeading) {
+            Button("Add cat") {
+                showAddCatModal = true
+            }
+            .sheet(isPresented: $showAddCatModal) {
+                AddCatView(showModal: $showAddCatModal, image: $image, name: "", id: "", cats: $catHelpers.cats)
+            }
+        }
+        ToolbarItem(placement: .principal) {
+            Text("Home")
+                .foregroundStyle(.white)
+        }
+        ToolbarItem(placement: .topBarTrailing) {
+            Button(action: {
+                showSettingsModal = true
+            }){
+                Image(systemName: "gearshape")
+            }
+            .sheet(isPresented: $showSettingsModal) {
+                SettingsView(showModal: $showSettingsModal)
+            }
+        }
+        
+    }
+    
 }
 
 #Preview {

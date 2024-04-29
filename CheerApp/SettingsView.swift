@@ -18,27 +18,35 @@ struct SettingsView: View {
     var body: some View {
         
         VStack {
-            if let user = user {
-                Text(user.email!).padding()
+            List {
+                
+                if let user = user {
+                    Text("User: " + user.email!).padding().foregroundColor(.white).modifier(ListItemAction())
+                }
+         
+                Button(action: {
+                    UserAuthentication().logout()
+                }, label: {
+                    Text("Logga ut").foregroundColor(pink)
+                })   .modifier(ListItemAction())
+          
+                Button( action: {
+                    UserAuthentication().deleteUserAndAccount()
+                }, label: {
+                    Text("Radera konto").foregroundColor(pink)
+                })   .modifier(ListItemAction())
+    
+                Button( action: {
+                    showModal = false
+                }, label: {
+                    Text("Stäng").foregroundColor(pink)
+                }).modifier(ListItemAction())
             }
-            
-            Button(action: {
-                UserAuthentication().logout()
-            }, label: {
-                Text("Logga ut")
-            })
-            
-            Button( action: {
-                UserAuthentication().deleteUserAndAccount()
-            }, label: {
-                Text("Radera konto")
-            })
-            Button( action: {
-                showModal = false
-            }, label: {
-                Text("Stäng")
-            })
-        }
+            .listStyle(.plain)
+        
+            Spacer()
+        }.frame(maxWidth: .infinity, maxHeight: .infinity).background(concrete).tint(pink)
+        
     }
 }
 

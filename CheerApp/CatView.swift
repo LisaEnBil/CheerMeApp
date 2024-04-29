@@ -14,8 +14,9 @@ struct CatView: View {
     @State private var isDragging = false
     
     var body: some View {
-        
-        Text(model.name)
+        VStack {
+
+            Text(model.name).foregroundStyle(.white).font(.title)
         
         Image(uiImage: model.image)
             .resizable()
@@ -36,6 +37,7 @@ struct CatView: View {
             .onAppear {
                 initializeAudioPlayer()
             }
+        }.frame(maxHeight: .infinity).background(concrete)
     }
     
     func initializeAudioPlayer()  {

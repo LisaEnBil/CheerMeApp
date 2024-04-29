@@ -23,6 +23,14 @@ struct Olive: ViewModifier {
         }
     }
 
+struct ListItemAction: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .listRowBackground(concrete)
+            .listRowSeparatorTint(pink)
+    }
+}
+
 struct YellowGreen: ViewModifier {
     func body(content: Content) -> some View {
         content
