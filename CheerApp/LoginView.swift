@@ -17,6 +17,7 @@ struct LoginView: View {
  @State var isRegistrering = false
  @State var isLoggingIn = false
  @State var text = ""
+ @State var isResettingPassword = false
  
  @ObservedObject var userAuth = UserAuthentication()
  
@@ -26,21 +27,21 @@ struct LoginView: View {
    Text(userAuth.isIncorrect ? "Email or Password is incorrect" : "").foregroundColor(Color(red:1, green:0.57684861730000003, blue:0.64454441770000004))
    
    Text(isMatching == false ? "Passwords doesn't match" : "").foregroundColor(Color(red:1, green:0.57684861730000003, blue:0.64454441770000004))
-
+   
    if isLoggingIn == true  {
-
+    
     TextField("Email", text: $email ).background(.white).padding()
-
+    
     TextField("Password", text: $password ).background(.white).padding()
-
+    
    }
    
    if isRegistrering == true  {
-
+    
     TextField("Email", text: $email ).background(.white).padding()
-
+    
     TextField("Password", text: $password ).background(.white).padding()
-
+    
     TextField("Password again", text: $passwordCopy ).textCase(.lowercase).background(.white).padding()
    }
    
@@ -65,6 +66,25 @@ struct LoginView: View {
       Text("Submit")
      }).modifier(ButtonStyle())
     }
+   } else if isResettingPassword {
+    Text("If your email exist you will recieve an email with instructions on how to reset your password.").foregroundStyle(.white)
+    
+    TextField("Email", text: $email ).background(.white).padding()
+    
+    Button(action: {
+      userAuth.resetUserPassword(email: email)
+    }, label: {
+     Text("Send")
+     
+    }).modifier(ButtonStyle())
+    
+    Button(action: {
+      isResettingPassword = false
+    }, label: {
+     Text("Go back")
+     
+    }).modifier(ButtonStyle())
+    
    }
    else {
     HStack {
@@ -89,7 +109,15 @@ struct LoginView: View {
       Text("Sign up")
       
      }).modifier(ButtonStyle())
+     
     }
+    Button(action: {
+      isResettingPassword = true
+    }, label: {
+     Text("Reset password")
+     
+    }).modifier(ButtonStyle())
+    
    }
   }.frame(maxWidth: .infinity).frame( maxHeight: .infinity).background(concrete)
  }
