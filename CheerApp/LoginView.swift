@@ -67,7 +67,7 @@ struct LoginView: View {
      }).modifier(ButtonStyle())
     }
    } else if isResettingPassword {
-    Text("If your email exist you will recieve an email with instructions on how to reset your password.").foregroundStyle(.white)
+    Text("You will recieve an email with instructions on how to reset your password.").foregroundStyle(.white)
     
     TextField("Email", text: $email ).background(.white).padding()
     
