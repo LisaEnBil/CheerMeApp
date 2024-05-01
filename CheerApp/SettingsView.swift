@@ -28,7 +28,7 @@ struct SettingsView: View {
                 Button(action: {
                     UserAuthentication().logout()
                 }, label: {
-                    Text("Logga ut").foregroundColor(pink)
+                    Text("Sign out").foregroundColor(pink)
                 })   .modifier(ListItemAction())
                 
                 
@@ -69,17 +69,11 @@ struct SettingsView: View {
                           }.frame(maxWidth: .infinity, maxHeight: .infinity).background(concrete)
                        
                       }.modifier(ListItemAction()).foregroundColor(pink)
-          
-//                Button( action: {
-//                    UserAuthentication().deleteUserAndAccount()
-//                }, label: {
-//                    Text("Radera konto").foregroundColor(pink)
-//                })   .modifier(ListItemAction())
-//    
+
                 Button( action: {
                     showModal = false
                 }, label: {
-                    Text("Stäng").foregroundColor(pink)
+                    Text("Close").foregroundColor(pink)
                 }).modifier(ListItemAction())
                 
             }

@@ -83,7 +83,7 @@ struct AddCatView: View {
                 showModal = false
                 
             }, label: {
-                Text("Stäng")
+                Text("Close")
             }).modifier(ButtonStyle())
             
         }

@@ -42,6 +42,7 @@
 		42313A592B92620400453DCF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42313A582B92620400453DCF /* Assets.xcassets */; };
 		42313A5C2B92620400453DCF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42313A5B2B92620400453DCF /* Preview Assets.xcassets */; };
 		42313A702B95114C00453DCF /* CatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42313A6F2B95114C00453DCF /* CatView.swift */; };
+		423B69B92BE2221500A2D166 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 423B69B82BE2221500A2D166 /* Localizable.xcstrings */; };
 		425689CC2BBEE04E00AAA85F /* IMG_3909.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 425689CB2BBEE04D00AAA85F /* IMG_3909.jpeg */; };
 		425689CE2BBFE47500AAA85F /* UserAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425689CD2BBFE47400AAA85F /* UserAuthentication.swift */; };
 		425689D02BC00A2800AAA85F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425689CF2BC00A2800AAA85F /* SettingsView.swift */; };
@@ -62,6 +63,7 @@
 		42313A582B92620400453DCF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		42313A5B2B92620400453DCF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		42313A6F2B95114C00453DCF /* CatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatView.swift; sourceTree = "<group>"; };
+		423B69B82BE2221500A2D166 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		425689CB2BBEE04D00AAA85F /* IMG_3909.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMG_3909.jpeg; sourceTree = "<group>"; };
 		425689CD2BBFE47400AAA85F /* UserAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthentication.swift; sourceTree = "<group>"; };
 		425689CF2BC00A2800AAA85F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -129,20 +131,21 @@
 				42B1299B2BC2858F008FFF7B /* Info.plist */,
 				422ADB6F2BBAC77A004D2F9F /* GoogleService-Info.plist */,
 				42313A542B92620100453DCF /* CheerApp.swift */,
+				42313A6F2B95114C00453DCF /* CatView.swift */,
 				42313A562B92620100453DCF /* ContentView.swift */,
+				422ADB6D2BBAC637004D2F9F /* LoginView.swift */,
+				422ADB712BBAE206004D2F9F /* AddCatView.swift */,
+				425689CD2BBFE47400AAA85F /* UserAuthentication.swift */,
+				425689CF2BC00A2800AAA85F /* SettingsView.swift */,
+				4229F3002BBD450100A7F365 /* CatHelpers.swift */,
+				42A0DCEB2BC4545F00B952F6 /* AudioManager.swift */,
+				42B70FB72BDE155000AFF167 /* CheerAppStyle.swift */,
+				422ADB6B2BBAC5F9004D2F9F /* StartView.swift */,
+				423B69B82BE2221500A2D166 /* Localizable.xcstrings */,
 				425689CB2BBEE04D00AAA85F /* IMG_3909.jpeg */,
 				42A858D62BBAE37700C63B48 /* dandelion.JPG */,
 				42313A582B92620400453DCF /* Assets.xcassets */,
 				42313A5A2B92620400453DCF /* Preview Content */,
-				42313A6F2B95114C00453DCF /* CatView.swift */,
-				422ADB6B2BBAC5F9004D2F9F /* StartView.swift */,
-				422ADB6D2BBAC637004D2F9F /* LoginView.swift */,
-				422ADB712BBAE206004D2F9F /* AddCatView.swift */,
-				4229F3002BBD450100A7F365 /* CatHelpers.swift */,
-				425689CD2BBFE47400AAA85F /* UserAuthentication.swift */,
-				425689CF2BC00A2800AAA85F /* SettingsView.swift */,
-				42A0DCEB2BC4545F00B952F6 /* AudioManager.swift */,
-				42B70FB72BDE155000AFF167 /* CheerAppStyle.swift */,
 			);
 			path = CheerApp;
 			sourceTree = "<group>";
@@ -224,6 +227,8 @@
 			knownRegions = (
 				en,
 				Base,
+				sv,
+				"sv-SE",
 			);
 			mainGroup = 42313A482B92620100453DCF;
 			packageReferences = (
@@ -245,6 +250,7 @@
 			files = (
 				42313A5C2B92620400453DCF /* Preview Assets.xcassets in Resources */,
 				422ADB702BBAC77A004D2F9F /* GoogleService-Info.plist in Resources */,
+				423B69B92BE2221500A2D166 /* Localizable.xcstrings in Resources */,
 				42A858D72BBAE37700C63B48 /* dandelion.JPG in Resources */,
 				42313A592B92620400453DCF /* Assets.xcassets in Resources */,
 				425689CC2BBEE04E00AAA85F /* IMG_3909.jpeg in Resources */,

@@ -96,5 +96,5 @@ class CatHelpers: ObservableObject {
 
     func addCat(_ cat: CatModel) {
         cats.append(cat)
-    }   
+    }
 }
