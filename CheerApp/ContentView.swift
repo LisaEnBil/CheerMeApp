@@ -12,10 +12,12 @@ import Firebase
 import FirebaseStorage
 
 
+
 struct CatListRow<Destination: View>: View {
     let cat: CatModel
     let destination: () -> Destination
     let onDelete: () async -> Void
+
     
     var body: some View {
         NavigationLink {
@@ -119,6 +121,8 @@ struct ContentView: View {
         }
         
     }
+    
+   
     
 }
 
