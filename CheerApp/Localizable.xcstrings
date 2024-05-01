@@ -24,6 +24,16 @@
         }
       }
     },
+    "Back" : {
+      "localizations" : {
+        "sv-SE" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tillbaka"
+          }
+        }
+      }
+    },
     "Close" : {
       "localizations" : {
         "sv-SE" : {
@@ -68,6 +78,7 @@
       }
     },
     "Go back" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
