@@ -18,7 +18,6 @@ struct CatListRow<Destination: View>: View {
     let destination: () -> Destination
     let onDelete: () async -> Void
 
-    
     var body: some View {
         NavigationLink {
             destination()
@@ -51,7 +50,7 @@ struct ContentView: View {
     @State private var showAddCatModal = false
     @State private var showSettingsModal = false
     @State var image: UIImage?
-    
+
     @ObservedObject var catHelpers = CatHelpers()
     @ObservedObject var audioRecorder = AudioManager()
     
@@ -77,6 +76,7 @@ struct ContentView: View {
                         
                     }
             }
+            .background(.gray)
             .listStyle(.plain)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: toolbarContent)
@@ -87,13 +87,11 @@ struct ContentView: View {
             catHelpers.loadStoredCats(dbRef: "library_cats" )
             catHelpers.loadStoredCats(dbRef: "user_cat_list" )
             audioRecorder.deleteRecording()
+          
         }
         .tint(pink)
-        
     }
-    
-    
-    
+
     @ToolbarContentBuilder
     func toolbarContent() -> some ToolbarContent{
         
@@ -119,11 +117,7 @@ struct ContentView: View {
                 SettingsView(showModal: $showSettingsModal)
             }
         }
-        
     }
-    
-   
-    
 }
 
 #Preview {

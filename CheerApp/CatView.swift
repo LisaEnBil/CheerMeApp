@@ -10,7 +10,7 @@ import CoreHaptics
 
 struct CatView: View {
     let model: CatModel
-    
+ 
     @State private var player: AVAudioPlayer?
     @State private var isDragging = false
     @State private var engine: CHHapticEngine?
@@ -28,8 +28,10 @@ struct CatView: View {
                     .onChanged { _ in
                         self.isDragging = true
                         complexSuccess()
+                        
+                       
                         player?.play()
-                        print(model)
+                  
                     }
                     .onEnded { _ in
                         self.isDragging = false
@@ -45,10 +47,16 @@ struct CatView: View {
     }
     
     func initializeAudioPlayer()  {
+                
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
+        } catch {
+            print("Playback error: \(error)")
+        }
         
         do {
             if player == nil {
-                player = try AVAudioPlayer(contentsOf: model.audio)
+                player = try AVAudioPlayer(contentsOf: model.audio )
                 player?.prepareToPlay()
             }
             
@@ -58,11 +66,10 @@ struct CatView: View {
     }
     
     func complexSuccess() {
-        // make sure that the device supports haptics
+    
         guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else { return }
         var events = [CHHapticEvent]()
 
-        // create one intense, sharp tap
         let intensity = CHHapticEventParameter(parameterID: .hapticIntensity, value: 0.5)
         let sharpness = CHHapticEventParameter(parameterID: .hapticSharpness, value: 0.5)
         let event = CHHapticEvent(eventType: .hapticTransient, parameters: [intensity, sharpness], relativeTime: 0)

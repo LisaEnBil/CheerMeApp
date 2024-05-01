@@ -19,10 +19,7 @@ struct AddCatView: View {
     @State var name: String
     @State private var hasRecorded = false
     @State var id: String
-    
-    
     @Binding var cats: [CatModel]
-    
     @ObservedObject var audioRecorder = AudioManager()
     
     var body: some View {
@@ -72,7 +69,9 @@ struct AddCatView: View {
             
             Button(action:{
                 let audioFileURL = audioRecorder.getDocumentsDirectory().appendingPathComponent("recording.wav")
-                saveCat(addCat: CatModel(id: id, name: name, image: image!, audio: audioFileURL))
+                Task {
+                    await saveCat(addCat: CatModel(id: id, name: name, image: image!, audio: audioFileURL))
+                }
                 showModal = false
             }, label: {
                 Text("Save your cat").foregroundStyle(!hasRecorded ? .gray : pink)
@@ -97,7 +96,7 @@ struct AddCatView: View {
         cats.append(cat)
     }
     
-    func saveCat(addCat: CatModel) {
+    func saveCat(addCat: CatModel)async {
         
         let uid = Auth.auth().currentUser!.uid
         
@@ -118,17 +117,21 @@ struct AddCatView: View {
         
         
         let audioAsset = AVURLAsset(url: addCat.audio)
-        let duration = audioAsset.duration.seconds
-        
-        if duration == 0 {
+        do {
+            let duration = try await audioAsset.load(.duration).seconds
             
-            print("The recorded audio file is empty.")
-        } else {
-            // The recorded audio file is not empty
-            print("The recorded audio file has a duration of \(duration) seconds.")
+            if duration == 0 {
+                
+                print("The recorded audio file is empty.")
+            } else {
+                // The recorded audio file is not empty
+                print("The recorded audio file has a duration of \(duration) seconds.")
+            }
+            
+        } catch {
+            print("Error uploading audio file: \(error)")
         }
-        
-        
+
         audioRef.putFile(from: addCat.audio, metadata: nil) { (metadata, error) in
             if let error = error {
                 print("Error uploading audio file: \(error)")
@@ -163,7 +166,12 @@ struct AddCatView: View {
         cat["name"] = addCat.name
         cat["id"] = id
         
-        ref.child("user_cat_list").child(uid).child(id).setValue(cat)
+        do {
+            try await ref.child("user_cat_list").child(uid).child(id).setValue(cat)
+        } catch {
+            print("Error adding new cat")
+        }
+      
         
     }
 }
