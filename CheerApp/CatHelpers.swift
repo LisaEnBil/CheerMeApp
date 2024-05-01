@@ -22,7 +22,8 @@ class CatHelpers: ObservableObject {
     
     @Published var image: UIImage?
     @Published var cats: [CatModel] = []
-    
+    @Published var libraryCats: [CatModel] = []
+ 
     func loadStoredCats(dbRef: String) {
         var ref: DatabaseReference!
         ref = Database.database().reference()
@@ -31,11 +32,11 @@ class CatHelpers: ObservableObject {
         let storageRef = storage.reference()
 
         let uid = Auth.auth().currentUser!.uid
-
         let dbPrefix = dbRef == "library_cats" ? ref.child(dbRef) : ref.child(dbRef).child(uid)
 
-        dbPrefix.observeSingleEvent(of: .value, with: { (snapshot) in
-            for todochild in snapshot.children {
+        dbPrefix.getData(completion: { error, snapshot in
+        
+            for todochild in snapshot!.children {
                 let childsnap = todochild as! DataSnapshot
 
                 if let theCat = childsnap.value as? [String: Any] {
@@ -54,7 +55,11 @@ class CatHelpers: ObservableObject {
                             let audioURL = dbRef == "library_cats" ? URL(fileURLWithPath: NSTemporaryDirectory() + "\(childsnap.key).wav") : URL(fileURLWithPath: NSTemporaryDirectory() + "\(name).wav")
                             try audioData.write(to: audioURL)
                             let catModel = CatModel(id:id, name: name, image: imagePlace, audio: audioURL)
+                          
                             DispatchQueue.main.async {
+                                if dbRef == "library_cats" {
+                                    self.libraryCats.append(catModel)
+                                }
                                 self.cats.append(catModel)
                             }
                         } catch {
@@ -87,15 +92,9 @@ class CatHelpers: ObservableObject {
         } catch let error {
             print("Error deleting data", error)
         }
- 
     }
 
-    
-    
-    
     func addCat(_ cat: CatModel) {
         cats.append(cat)
-    }
-
-    
+    }   
 }

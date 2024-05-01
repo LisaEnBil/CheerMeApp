@@ -26,15 +26,7 @@ struct CatListRow<Destination: View>: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(height: 200)
-                    .swipeActions(edge: .trailing) {
-                        Button(role: .destructive, action: {
-                            Task {
-                                await onDelete()
-                            }
-                        }, label: {
-                            Label("Delete", systemImage: "trash")
-                        })
-                    }
+                 
                 
                 VStack(alignment: .leading) {
                     Text("Name:")
@@ -62,14 +54,26 @@ struct ContentView: View {
     @ObservedObject var audioRecorder = AudioManager()
     
     var body: some View {
-   
+        
         NavigationStack {
             List(catHelpers.cats, id: \.self) { cat in
                 CatListRow(cat: cat, destination: {
                     CatView(model: cat)
                 }) {
                     await catHelpers.deleteCat(id: cat.id)
-                }
+                }   .swipeActions(edge: .trailing) {
+                    if !catHelpers.libraryCats.contains(cat) {
+                            Button(role: .destructive, action: {
+                                Task {
+                                    await catHelpers.deleteCat(id: cat.id)
+                                }
+                            }, label: {
+                                Label("Delete", systemImage: "trash")
+                            })
+                        }
+                        
+                        
+                    }
             }
             .listStyle(.plain)
             .navigationBarTitleDisplayMode(.inline)
@@ -85,6 +89,8 @@ struct ContentView: View {
         .tint(pink)
         
     }
+    
+    
     
     @ToolbarContentBuilder
     func toolbarContent() -> some ToolbarContent{
