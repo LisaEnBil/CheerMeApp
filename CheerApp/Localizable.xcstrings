@@ -119,6 +119,7 @@
       }
     },
     "Name:" : {
+      "extractionState" : "stale",
       "localizations" : {
         "sv-SE" : {
           "stringUnit" : {

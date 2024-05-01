@@ -25,14 +25,18 @@ struct CatListRow<Destination: View>: View {
             HStack(alignment: .top, spacing: 20) {
                 Image(uiImage: cat.image)
                     .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(height: 200)
+                    .scaledToFill()
+                    .frame(width: 80, height: 80)
+                    .clipped()
+                    
+                    
+                    
                  
                 
                 VStack(alignment: .leading) {
-                    Text("Name:")
-                        .bold()
+                        
                     Text(cat.name)
+                        .bold()
                 }
                 Spacer()
             }

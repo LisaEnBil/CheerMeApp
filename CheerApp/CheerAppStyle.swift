@@ -56,9 +56,14 @@ struct TextFieldStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
             .frame(maxWidth: 250)
-            .background(.white)
-            .padding()
-            
+            .frame(width: 180, height: 30)
+            .tint(pink)
+            .padding([.leading, .trailing], 10)
+            .overlay(
+                RoundedRectangle(cornerRadius: 5)
+                    .stroke(pink, lineWidth: 2)
+            )
+            .foregroundColor(.white)
     }
 }
 

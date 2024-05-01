@@ -64,6 +64,7 @@
 		42313A5B2B92620400453DCF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		42313A6F2B95114C00453DCF /* CatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatView.swift; sourceTree = "<group>"; };
 		423B69B82BE2221500A2D166 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		423B69F62BE2B9D900A2D166 /* CheerApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CheerApp.entitlements; sourceTree = "<group>"; };
 		425689CB2BBEE04D00AAA85F /* IMG_3909.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMG_3909.jpeg; sourceTree = "<group>"; };
 		425689CD2BBFE47400AAA85F /* UserAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthentication.swift; sourceTree = "<group>"; };
 		425689CF2BC00A2800AAA85F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -128,6 +129,7 @@
 		42313A532B92620100453DCF /* CheerApp */ = {
 			isa = PBXGroup;
 			children = (
+				423B69F62BE2B9D900A2D166 /* CheerApp.entitlements */,
 				42B1299B2BC2858F008FFF7B /* Info.plist */,
 				422ADB6F2BBAC77A004D2F9F /* GoogleService-Info.plist */,
 				42313A542B92620100453DCF /* CheerApp.swift */,
@@ -405,8 +407,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CheerApp/CheerApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"CheerApp/Preview Content\"";
 				DEVELOPMENT_TEAM = 4JQALNSV6W;
 				ENABLE_PREVIEWS = YES;
@@ -414,6 +417,7 @@
 				INFOPLIST_FILE = CheerApp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = CheerMeApp;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -424,7 +428,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = se.lisa.CheerApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -442,8 +446,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CheerApp/CheerApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"CheerApp/Preview Content\"";
 				DEVELOPMENT_TEAM = 4JQALNSV6W;
 				ENABLE_PREVIEWS = YES;
@@ -451,6 +456,7 @@
 				INFOPLIST_FILE = CheerApp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = CheerMeApp;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -461,7 +467,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = se.lisa.CheerApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

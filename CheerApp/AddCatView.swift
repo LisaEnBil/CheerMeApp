@@ -25,7 +25,10 @@ struct AddCatView: View {
     var body: some View {
         VStack {
             Spacer()
-            TextField("Your cat's name here", text: $name ).background(.white)
+           
+            TextField("Your cat's name here", text: $name)
+                .modifier(TextFieldStyle())
+              
             
             Spacer()
        
@@ -87,7 +90,7 @@ struct AddCatView: View {
             
         }
         .padding()
-        .frame(maxHeight: .infinity)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(concrete)
         
         
