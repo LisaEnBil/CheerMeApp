@@ -13,21 +13,7 @@ import AVFoundation
 
 class AudioManager: NSObject, ObservableObject, AVAudioRecorderDelegate {
     @Published var audioRecorder: AVAudioRecorder?
-    var audioPlayer: AVAudioPlayer?
-    
     @Published var isRecording = false
-
-    
-    func setupAudioSession()  {
-        do {
-            let audioSession = AVAudioSession.sharedInstance()
-            try audioSession.setCategory(.playAndRecord, mode: .default)
-            try audioSession.setActive(true)
-        } catch {
-            print("Error setting up audio session: \(error.localizedDescription)")
-        }
-    }
-    
     
     func startRecording() {
         setupAudioSession()
@@ -54,8 +40,7 @@ class AudioManager: NSObject, ObservableObject, AVAudioRecorderDelegate {
             if (audioRecorder?.prepareToRecord() == false ){
                 print("NOT ready to record")
             }
-            
-            
+
             if audioRecorder?.isRecording == true {
                 isRecording = true
             }
@@ -70,13 +55,7 @@ class AudioManager: NSObject, ObservableObject, AVAudioRecorderDelegate {
         isRecording = false
     }
     
-    func getDocumentsDirectory() -> URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return paths[0]
-    }
-    
     func deleteRecording() {
-        
         let audioFileURL = getDocumentsDirectory().appendingPathComponent("recording.wav")
         do {
             try FileManager.default.removeItem(at: audioFileURL)
@@ -84,5 +63,20 @@ class AudioManager: NSObject, ObservableObject, AVAudioRecorderDelegate {
         catch {
             print("didn't work deleting it")
         }
+    }
+    
+    private func setupAudioSession()  {
+        do {
+            let audioSession = AVAudioSession.sharedInstance()
+            try audioSession.setCategory(.playAndRecord, mode: .default)
+            try audioSession.setActive(true)
+        } catch {
+            print("Error setting up audio session: \(error.localizedDescription)")
+        }
+    }
+    
+    private func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
     }
 }
