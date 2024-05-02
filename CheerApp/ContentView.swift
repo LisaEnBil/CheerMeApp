@@ -65,12 +65,12 @@ struct ContentView: View {
                 CatListRow(cat: cat, destination: {
                     CatView(model: cat)
                 }) {
-                    await catHelpers.deleteCat(id: cat.id)
+                    await catHelpers.deleteCat(id: cat.id, name: cat.name)
                 }   .swipeActions(edge: .trailing) {
                     if !catHelpers.libraryCats.contains(cat) {
                             Button(role: .destructive, action: {
                                 Task {
-                                    await catHelpers.deleteCat(id: cat.id)
+                                    await catHelpers.deleteCat(id: cat.id, name: cat.name)
                                 }
                             }, label: {
                                 Label("Delete", systemImage: "trash")
