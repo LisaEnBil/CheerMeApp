@@ -42,7 +42,9 @@ struct CatView: View {
             )
             .onAppear {
                 hapticManager.prepareHaptics()
+                hapticManager.handleAppBecomingActive()
                 initializeAudioPlayer()
+                   
             }
         }.frame(maxHeight: .infinity).background(concrete)
     }

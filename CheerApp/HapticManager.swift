@@ -11,6 +11,7 @@ import CoreHaptics
 
 class HapticManager: ObservableObject {
     @Published private(set) var engine: CHHapticEngine?
+    @Published var appIsActive = false
 
     init() {
         prepareHaptics()
@@ -45,4 +46,11 @@ class HapticManager: ObservableObject {
             print("Failed to play pattern: \(error.localizedDescription).")
         }
     }
+    
+    func handleAppBecomingActive() {
+            if !appIsActive {
+                appIsActive = true
+                prepareHaptics()
+            }
+        }
 }
