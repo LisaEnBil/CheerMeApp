@@ -75,9 +75,7 @@ struct ContentView: View {
                             }, label: {
                                 Label("Delete", systemImage: "trash")
                             })
-                        }
-                        
-                        
+                        }    
                     }
             }
             .background(.gray)
