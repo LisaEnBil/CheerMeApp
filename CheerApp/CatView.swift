@@ -14,6 +14,7 @@ struct CatView: View {
     @State private var player: AVAudioPlayer?
     @State private var isDragging = false
     @State private var engine: CHHapticEngine?
+    @StateObject private var hapticManager = HapticManager()
     
     var body: some View {
         VStack {
@@ -27,7 +28,7 @@ struct CatView: View {
                 DragGesture()
                     .onChanged { _ in
                         self.isDragging = true
-                        complexSuccess()
+                        hapticManager.playHapticFeedback()
                         
                        
                         player?.play()
@@ -40,7 +41,7 @@ struct CatView: View {
                     }
             )
             .onAppear {
-                prepareHaptics()
+                hapticManager.prepareHaptics()
                 initializeAudioPlayer()
             }
         }.frame(maxHeight: .infinity).background(concrete)
@@ -62,37 +63,6 @@ struct CatView: View {
             
         }catch {
             print("Error playing audio: \(error)")
-        }
-    }
-    
-    func complexSuccess() {
-    
-        guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else { return }
-        var events = [CHHapticEvent]()
-
-        let intensity = CHHapticEventParameter(parameterID: .hapticIntensity, value: 0.5)
-        let sharpness = CHHapticEventParameter(parameterID: .hapticSharpness, value: 0.5)
-        let event = CHHapticEvent(eventType: .hapticTransient, parameters: [intensity, sharpness], relativeTime: 0)
-        events.append(event)
-
-        do {
-            let pattern = try CHHapticPattern(events: events, parameters: [])
-            let player = try engine?.makePlayer(with: pattern)
-            try player?.start(atTime: 0)
-        } catch {
-            print("Failed to play pattern: \(error.localizedDescription).")
-        }
-    }
-    
-    
-    func prepareHaptics() {
-        guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else { return }
-
-        do {
-            engine = try CHHapticEngine()
-            try engine?.start()
-        } catch {
-            print("There was an error creating the engine: \(error.localizedDescription)")
         }
     }
 }
