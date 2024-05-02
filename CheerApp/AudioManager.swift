@@ -65,7 +65,7 @@ class AudioManager: NSObject, ObservableObject, AVAudioRecorderDelegate {
         }
     }
     
-    private func setupAudioSession()  {
+     func setupAudioSession()  {
         do {
             let audioSession = AVAudioSession.sharedInstance()
             try audioSession.setCategory(.playAndRecord, mode: .default)
@@ -75,7 +75,7 @@ class AudioManager: NSObject, ObservableObject, AVAudioRecorderDelegate {
         }
     }
     
-    private func getDocumentsDirectory() -> URL {
+     func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return paths[0]
     }
