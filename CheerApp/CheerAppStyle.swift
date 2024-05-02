@@ -52,6 +52,17 @@ struct Concrete: ViewModifier {
     }
 }
 
+struct TextFieldLabelStyle: ViewModifier {
+    
+    func body(content: Content) -> some View {
+        content
+            .frame(maxWidth: 250, alignment: .leading)
+            .frame(width: 180, alignment: .leading)
+            .padding([.trailing], 12)
+            .foregroundStyle(.white)
+    }
+}
+
 struct TextFieldStyle: ViewModifier {
     func body(content: Content) -> some View {
         content

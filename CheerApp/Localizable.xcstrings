@@ -65,7 +65,14 @@
       }
     },
     "Email" : {
-
+      "localizations" : {
+        "sv-SE" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email"
+          }
+        }
+      }
     },
     "Email or Password is incorrect" : {
       "localizations" : {
@@ -77,19 +84,12 @@
         }
       }
     },
-    "Go back" : {
-      "extractionState" : "stale",
+    "Email:" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Back"
-          }
-        },
         "sv-SE" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Tillbaka"
+            "state" : "translated",
+            "value" : "Email:"
           }
         }
       }
@@ -106,28 +106,6 @@
     },
     "Key" : {
       "extractionState" : "manual"
-    },
-    "Logga ut" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sign out"
-          }
-        }
-      }
-    },
-    "Name:" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "sv-SE" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Namn:"
-          }
-        }
-      }
     },
     "No" : {
       "localizations" : {
@@ -155,6 +133,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Lösenord "
+          }
+        }
+      }
+    },
+    "Password again:" : {
+      "localizations" : {
+        "sv-SE" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Löserord igen:"
+          }
+        }
+      }
+    },
+    "Password:" : {
+      "localizations" : {
+        "sv-SE" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lösenord:"
           }
         }
       }
@@ -239,17 +237,6 @@
         }
       }
     },
-    "Stäng" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Close"
-          }
-        }
-      }
-    },
     "Submit" : {
       "localizations" : {
         "sv-SE" : {
@@ -281,6 +268,16 @@
       }
     },
     "Your cat's name here" : {
+      "localizations" : {
+        "sv-SE" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kattens namn här"
+          }
+        }
+      }
+    },
+    "Your cat's name here: " : {
       "localizations" : {
         "sv-SE" : {
           "stringUnit" : {

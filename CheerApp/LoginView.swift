@@ -12,7 +12,6 @@ struct LoginView: View {
  
  @State var isRegistering = false
  @State var isLoggingIn = false
- @State var isResettingPassword = false
  
  var body: some View {
   VStack {
@@ -23,12 +22,9 @@ struct LoginView: View {
     } else if isRegistering{
      SignUp(isRegistering: $isRegistering)
      
-    } else if isResettingPassword {
-     ResetPassword(isResettingPassword: $isResettingPassword)
-     
     }
     else {
-     FirstPageButtonView(isRegistering: $isRegistering, isLoggingIn: $isLoggingIn, isResettingPassword: $isResettingPassword)
+     FirstPageButtonView(isRegistering: $isRegistering, isLoggingIn: $isLoggingIn)
  
    }
 
@@ -44,7 +40,6 @@ struct FirstPageButtonView: View {
  
  @Binding var isRegistering: Bool
  @Binding var isLoggingIn: Bool
- @Binding var isResettingPassword: Bool
  
  var body: some View {
   
@@ -58,7 +53,6 @@ struct FirstPageButtonView: View {
      .aspectRatio(contentMode: .fit)
      .frame(width: 150.0, height: 150.0)
      .cornerRadius(5.0)
-    
     
     Spacer()
    }
@@ -84,13 +78,7 @@ struct FirstPageButtonView: View {
       Text("Sign up")
      }).modifier(ButtonStyle())
     }
-    
-    Button(action: {
-     isResettingPassword = true
-    }, label: {
-     Text("Reset password")
-    }).modifier(ButtonStyle())
-    
+
     Spacer()
    }
 
@@ -101,6 +89,7 @@ struct FirstPageButtonView: View {
 struct ResetPassword: View {
  
  @State var email = ""
+ @State var isButtonClicked = false
  @Binding var isResettingPassword: Bool
  @ObservedObject var userAuth = UserAuthentication()
  
@@ -113,16 +102,24 @@ struct ResetPassword: View {
    
    VStack {
     
-    Text("You will recieve an email with instructions on how to reset your password.")
-     .frame(maxWidth: 250)
-     .foregroundStyle(.white)
-     .padding()
+    VStack {
+     Text("Email:").modifier(TextFieldLabelStyle())
+      TextField("Email", text: $email )
+       .modifier(TextFieldStyle())
+    }
     
-    TextField("Email", text: $email )
-     .modifier(TextFieldStyle())
+    if isButtonClicked {
+     
+     Text("You will recieve an email with instructions on how to reset your password.")
+      .frame(maxWidth: 250)
+      .frame(width: 180)
+      .foregroundStyle(.white)
+      .padding()
+    }
     
     Button(action: {
      userAuth.resetUserPassword(email: email)
+     isButtonClicked = true
     }, label: {
      Text("Send")
      
@@ -142,7 +139,6 @@ struct BackButton: View {
  var body: some View {
   HStack {
    
-  
    Button(action: {
     Boolean = false
    }, label: {
@@ -178,15 +174,24 @@ struct SignUp: View {
     
     Text(isMatching == false ? "Passwords doesn't match" : "").foregroundColor(Color(red:1, green:0.57684861730000003, blue:0.64454441770000004))
     
-    TextField("Email", text: $email )
-     .modifier(TextFieldStyle())
-    
-    SecureField("Password", text: $password )
-     .modifier(TextFieldStyle())
-    
-    SecureField("Password again", text: $passwordCopy )
-     .modifier(TextFieldStyle())
+    VStack {
+     Text("Email:").modifier(TextFieldLabelStyle())
+     TextField("Email", text: $email )
+      .modifier(TextFieldStyle())
+    }.padding()
    
+    VStack {
+     Text("Password:").modifier(TextFieldLabelStyle())
+     SecureField("Password", text: $password )
+      .modifier(TextFieldStyle())
+    }.padding()
+   
+    VStack {
+     Text("Password again:").modifier(TextFieldLabelStyle())
+     SecureField("Password again", text: $passwordCopy )
+      .modifier(TextFieldStyle())
+    }.padding()
+    
     Button(action: {
      if password == passwordCopy {
       isMatching = true
@@ -200,11 +205,7 @@ struct SignUp: View {
     }).modifier(ButtonStyle())
    }
    Spacer()
-   
   }
-  
-  
-  
  }
 }
 
@@ -213,6 +214,7 @@ struct Login: View {
  @State var email = ""
  @State var password = ""
  @Binding var isLoggingIn: Bool
+ @State private var isResettingPassword = false
  @ObservedObject var userAuth = UserAuthentication()
  
  var body: some View {
@@ -224,17 +226,30 @@ struct Login: View {
    
    Text(userAuth.isIncorrect ? "Email or Password is incorrect" : "").foregroundColor(Color(red:1, green:0.57684861730000003, blue:0.64454441770000004))
    
-   TextField("Email", text: $email )
-    .modifier(TextFieldStyle())
-   
-   SecureField("Password", text: $password )
-    .modifier(TextFieldStyle())
+   VStack {
+    Text("Email:").modifier(TextFieldLabelStyle())
+    TextField("Email", text: $email )
+     .modifier(TextFieldStyle())
+   }.padding()
+  
+   VStack {
+    Text("Password:").modifier(TextFieldLabelStyle())
+    SecureField("Password", text: $password )
+     .modifier(TextFieldStyle())
+   }.padding()
    
    Button(action: {
     userAuth.login(email: email, password: password)
    }, label: {
     Text("Sign in")
    }).modifier(ButtonStyle())
+   
+   Button(action: {
+    isResettingPassword = true
+   }, label: {
+    Text("Reset password")
+   }).modifier(ButtonStyle())
+   
    
    Spacer()
    

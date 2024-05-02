@@ -26,6 +26,7 @@ struct AddCatView: View {
         VStack {
             Spacer()
            
+            Text("Your cat's name here: ").foregroundStyle(.white)
             TextField("Your cat's name here", text: $name)
                 .modifier(TextFieldStyle())
               
