@@ -46,7 +46,7 @@ struct CatView: View {
                 initializeAudioPlayer()
                    
             }
-        }.frame(maxHeight: .infinity).background(concrete)
+        }.frame(maxWidth: .infinity, maxHeight: .infinity).background(concrete)
     }
     
     func initializeAudioPlayer()  {
