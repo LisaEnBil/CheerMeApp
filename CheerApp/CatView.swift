@@ -15,6 +15,7 @@ struct CatView: View {
     @State private var isDragging = false
     @State private var engine: CHHapticEngine?
     @StateObject private var hapticManager = HapticManager()
+    @Environment(\.scenePhase) var scenePhase
     
     var body: some View {
         VStack {
@@ -29,22 +30,22 @@ struct CatView: View {
                     .onChanged { _ in
                         self.isDragging = true
                         hapticManager.playHapticFeedback()
-                        
-                       
                         player?.play()
-                  
                     }
                     .onEnded { _ in
                         self.isDragging = false
                         player?.stop()
-                        
                     }
             )
+            .onChange(of: scenePhase) { oldPhase, newPhase in
+                if newPhase == .active {
+                    hapticManager.prepareHaptics()
+                    hapticManager.appIsActive = true
+               }
+            }
             .onAppear {
                 hapticManager.prepareHaptics()
-                hapticManager.handleAppBecomingActive()
                 initializeAudioPlayer()
-                   
             }
         }.frame(maxWidth: .infinity, maxHeight: .infinity).background(concrete)
     }

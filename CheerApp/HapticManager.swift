@@ -19,7 +19,6 @@ class HapticManager: ObservableObject {
     
     func prepareHaptics() {
         guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else { return }
-
         do {
             engine = try CHHapticEngine()
             try engine?.start()
@@ -46,11 +45,5 @@ class HapticManager: ObservableObject {
             print("Failed to play pattern: \(error.localizedDescription).")
         }
     }
-    
-    func handleAppBecomingActive() {
-            if !appIsActive {
-                appIsActive = true
-                prepareHaptics()
-            }
-        }
+
 }
