@@ -22,30 +22,42 @@ struct CatListRow<Destination: View>: View {
         NavigationLink {
             destination()
         } label: {
-            HStack(alignment: .top, spacing: 20) {
+            HStack(alignment: .center, spacing: 20) {
                 Image(uiImage: cat.image)
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 80, height: 80)
+                    .frame(width: 60, height: 60)
                     .clipped()
-                    
-                    
-                    
-                 
+                    .cornerRadius(40)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 40)
+                            .stroke(Color(red:64/255, green:64/255, blue:64/255), lineWidth: 5)
+                    )
                 
-                VStack(alignment: .leading) {
-                        
-                    Text(cat.name)
-                        .bold()
-                }
+                Text(cat.name)
+                    .font(.title2)
+                
                 Spacer()
             }
             .padding()
             .foregroundStyle(pink)
             .background(concrete)
         }
-        .listRowBackground(Color.gray)
-        .listRowSeparatorTint(pink)
+        .cornerRadius(20)
+        .listRowBackground(RoundedRectangle(cornerRadius: 20)
+            .background(.clear)
+            .foregroundColor(concrete)
+            .padding(
+                EdgeInsets(
+                    top: 5,
+                    leading: 10,
+                    bottom: 10,
+                    trailing: 5
+                )
+            )
+        )
+        .listRowSeparator(.hidden)
+        .listRowSpacing(10)
     }
 }
 
@@ -59,7 +71,9 @@ struct ContentView: View {
     @ObservedObject var audioRecorder = AudioManager()
     
     var body: some View {
-        
+        VStack {
+            
+  
         NavigationStack {
             List(catHelpers.cats, id: \.self) { cat in
                 CatListRow(cat: cat, destination: {
@@ -78,13 +92,15 @@ struct ContentView: View {
                         }    
                     }
             }
+            .scrollContentBackground(.hidden) // will hide default background for scroll content
+            .foregroundStyle(pink, pink)
             .background(.gray)
-            .listStyle(.plain)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: toolbarContent)
             .toolbarBackground(.visible, for: .navigationBar)
             .toolbarBackground(concrete)
         }
+        .background(.gray)
         .onAppear(){
             catHelpers.loadStoredCats(dbRef: "library_cats" )
             catHelpers.loadStoredCats(dbRef: "user_cat_list" )
@@ -92,6 +108,10 @@ struct ContentView: View {
           
         }
         .tint(pink)
+        .background(.gray)
+            
+        }
+        .background(.gray)
     }
 
     @ToolbarContentBuilder
