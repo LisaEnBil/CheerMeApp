@@ -17,10 +17,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         
         FirebaseApp.configure()
        
-        
         AVAudioApplication.requestRecordPermission { granted in
             if granted {
-                print("Permission granted")
+                print("Permission granted", granted)
             } else {
                 print("Permission denied")
             }

@@ -20,8 +20,22 @@ class UserAuthentication: ObservableObject {
             
             if error == nil {
                 print("Register OK")
+                self.verificationEmail()
             } else {
                 print("Register fail")
+            }
+        }
+    }
+    
+    
+    func verificationEmail() {
+        
+        Task {
+             Auth.auth().currentUser?.sendEmailVerification { error in
+                
+                if let error = error {
+                    print("Error deleting file: \(error.localizedDescription)")
+                }
             }
         }
     }

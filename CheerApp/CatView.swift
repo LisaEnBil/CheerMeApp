@@ -64,7 +64,7 @@ struct CatView: View {
                 player?.prepareToPlay()
             }
             
-        }catch {
+        } catch {
             print("Error playing audio: \(error)")
         }
     }
