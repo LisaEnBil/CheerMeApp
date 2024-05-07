@@ -161,11 +161,22 @@
       }
     },
     "Password is too short" : {
+      "extractionState" : "stale",
       "localizations" : {
         "sv-SE" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Lösenordet är för kort, minst 6 tecken"
+          }
+        }
+      }
+    },
+    "Password is too short, password needs to exist of at least 6 characters" : {
+      "localizations" : {
+        "sv-SE" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lösenordet är för kort, lösenordet behöver vara minst 6 tecken"
           }
         }
       }
