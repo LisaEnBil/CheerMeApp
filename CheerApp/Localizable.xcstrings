@@ -104,6 +104,16 @@
         }
       }
     },
+    "Incorrect email format." : {
+      "localizations" : {
+        "sv-SE" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inkorrekt email-format"
+          }
+        }
+      }
+    },
     "Key" : {
       "extractionState" : "manual"
     },
@@ -142,7 +152,7 @@
         "sv-SE" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Löserord igen:"
+            "value" : "Lösenord igen:"
           }
         }
       }
@@ -163,6 +173,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Lösenord matchar inte"
+          }
+        }
+      }
+    },
+    "Registration failed, incorrect email format." : {
+      "localizations" : {
+        "sv-SE" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Registrering misslyckades, inkorrekt email-format"
           }
         }
       }
