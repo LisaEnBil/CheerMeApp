@@ -14,29 +14,32 @@ class UserAuthentication: ObservableObject {
     
     @Published var isIncorrect = false
     
-    func register(email: String, password: String) {
-        Auth.auth().createUser(withEmail: email, password: password) {
-            authResult, error in
-            
-            if error == nil {
-                print("Register OK")
-                self.verificationEmail()
-            } else {
-                print("Register fail")
-            }
+    func resetUserPassword(email: String) async throws {
+        do {
+            try await Auth.auth().sendPasswordReset(withEmail: email)
+        } catch {
+            print("Error resetting password: \(error.localizedDescription)")
+            throw error
         }
     }
     
-    
-    func verificationEmail() {
-        
-        Task {
-             Auth.auth().currentUser?.sendEmailVerification { error in
-                
-                if let error = error {
-                    print("Error deleting file: \(error.localizedDescription)")
-                }
-            }
+    func registerUser(email: String, password: String) async throws {
+        do {
+            try await Auth.auth().createUser(withEmail: email, password: password)
+            print("Register OK")
+            await verificationEmail()
+        } catch {
+            print("Register fail: \(error.localizedDescription)")
+            throw error
+        }
+    }
+
+    func verificationEmail() async {
+        do {
+            try await Auth.auth().currentUser?.sendEmailVerification()
+            print("Verification email sent")
+        } catch {
+            print("Error sending verification email: \(error.localizedDescription)")
         }
     }
     
@@ -63,16 +66,15 @@ class UserAuthentication: ObservableObject {
         }
     }
     
-    func deleteUser() async  {
-        let user = Auth.auth().currentUser
+    func deleteUser() async -> String {
         
+        var result = ""
         let uid = Auth.auth().currentUser!.uid
-        
-        
         var ref : DatabaseReference!
         
         let storage = Storage.storage()
         let folderRef = storage.reference(withPath: "users/" + uid)
+        ref = Database.database().reference()
         
         folderRef.listAll { (result, error) in
             if let error = error {
@@ -92,14 +94,10 @@ class UserAuthentication: ObservableObject {
                 }
             }
             
-            // Wait for all files to be deleted
             deleteGroup.notify(queue: .main) {
                 print("Folder and all files deleted successfully")
             }
         }
-        
-        ref = Database.database().reference()
-        
         
         do {
             try await ref.child("user_cat_list").child(uid).removeValue()
@@ -107,11 +105,26 @@ class UserAuthentication: ObservableObject {
             print("Error deleting data", error)
         }
         
+        deleteUser { error in
+            if let error = error {
+                result = "Error deleting account: \(error.localizedDescription)"
+            } else {
+                result = "Success deleting account"
+            }
+        }
+
+        return result
+    }
+    
+    func deleteUser(completion: @escaping (Error?) -> Void) {
+        let user = Auth.auth().currentUser
         user?.delete { error in
             if let error = error {
-                print("Error deleting account")
+                print("Error deleting account: \(error)")
+                completion(error)
             } else {
                 print("Success deleting account")
+                completion(nil)
             }
         }
     }
@@ -122,16 +135,5 @@ class UserAuthentication: ObservableObject {
         }
     }
     
-    
-    func resetUserPassword(email: String) {
-        Task {
-            Auth.auth().sendPasswordReset(withEmail: email) { error in
-                
-                if let error = error {
-                    print("Error deleting file: \(error.localizedDescription)")
-                }
-                
-            }
-        }
-    }
+
 }
