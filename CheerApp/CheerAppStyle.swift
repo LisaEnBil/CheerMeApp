@@ -79,6 +79,16 @@ struct TextFieldStyle: ViewModifier {
 }
 
 
+struct EmailFieldStyle: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .textContentType(.emailAddress)
+            .keyboardType(.emailAddress)
+            .disableAutocorrection(true)
+    }
+}
+
+
 struct ButtonStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
