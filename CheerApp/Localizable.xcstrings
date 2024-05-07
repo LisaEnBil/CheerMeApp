@@ -117,6 +117,9 @@
     "Key" : {
       "extractionState" : "manual"
     },
+    "Key 1" : {
+      "extractionState" : "manual"
+    },
     "No" : {
       "localizations" : {
         "sv-SE" : {
@@ -153,6 +156,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Lösenord igen:"
+          }
+        }
+      }
+    },
+    "Password is too short" : {
+      "localizations" : {
+        "sv-SE" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lösenordet är för kort, minst 6 tecken"
           }
         }
       }

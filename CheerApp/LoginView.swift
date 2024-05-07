@@ -125,6 +125,7 @@ struct SignUp: View {
  @Binding var isRegistering: Bool
  @ObservedObject var userAuth = UserAuthentication()
  @State private var showError = false
+ @State var passwordTooShort = false
  
  var body: some View {
   
@@ -132,7 +133,14 @@ struct SignUp: View {
    BackButton(Boolean: $isRegistering)
    
    Spacer()
-   Text(isMatching == false ? "Passwords doesn't match" : "").foregroundColor(.red)
+   if passwordTooShort{
+    Text("Password is too short, password needs to exist of at least 6 characters").foregroundColor(.red)
+   }
+  
+   if isMatching {
+    Text("Passwords doesn't match").foregroundColor(.red)
+   }
+   
    
    if showError {
     Text("Registration failed, incorrect email format.")
@@ -160,7 +168,7 @@ struct SignUp: View {
    
    Button(action: {
     
-    if password == passwordCopy {
+    if password.count >= 6 && password == passwordCopy {
      isMatching = true
  
      Task {
@@ -173,7 +181,10 @@ struct SignUp: View {
        showError = true
       }
      }
-    }else {
+    } else if password.count < 6 {
+     passwordTooShort = true
+    }
+    else {
      isMatching = false
     }
    }, label: {
