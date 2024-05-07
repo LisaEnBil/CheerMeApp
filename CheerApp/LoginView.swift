@@ -130,17 +130,18 @@ struct SignUp: View {
  var body: some View {
   
   VStack {
-   BackButton(Boolean: $isRegistering)
-   
+
+    BackButton(Boolean: $isRegistering)
+  
+
    Spacer()
    if passwordTooShort{
     Text("Password is too short, password needs to exist of at least 6 characters").foregroundColor(.red)
    }
   
-   if isMatching {
+   if !isMatching {
     Text("Passwords doesn't match").foregroundColor(.red)
    }
-   
    
    if showError {
     Text("Registration failed, incorrect email format.")
