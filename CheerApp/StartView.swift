@@ -21,7 +21,8 @@ struct StartView: View {
             }else {
                 LoginView()
             }
-        }.onAppear(){
+        }
+        .onAppear(){
             Auth.auth().addStateDidChangeListener {
                 auth, user in
                                 
@@ -29,11 +30,12 @@ struct StartView: View {
                     isLoggedIn = false
                 }else {
                     isLoggedIn = true
-                
                     print(Auth.auth().currentUser?.uid as Any)
                 }
             }
+            
         }
+        .background(concrete)
     }
 }
 

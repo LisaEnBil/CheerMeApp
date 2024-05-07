@@ -12,6 +12,7 @@ struct LoginView: View {
  
  @State var isRegistering = false
  @State var isLoggingIn = false
+ @State private var isResettingPassword = false
  
  var body: some View {
   VStack {
@@ -22,10 +23,11 @@ struct LoginView: View {
     } else if isRegistering{
      SignUp(isRegistering: $isRegistering)
      
+    } else if isResettingPassword{
+     ResetPassword(isResettingPassword: $isResettingPassword)
     }
     else {
-     FirstPageButtonView(isRegistering: $isRegistering, isLoggingIn: $isLoggingIn)
- 
+     FirstPageButtonView(isRegistering: $isRegistering, isLoggingIn: $isLoggingIn, isResettingPassword: $isResettingPassword)
    }
 
   }.frame(maxWidth: .infinity).frame( maxHeight: .infinity).background(concrete)
@@ -40,6 +42,7 @@ struct FirstPageButtonView: View {
  
  @Binding var isRegistering: Bool
  @Binding var isLoggingIn: Bool
+ @Binding var isResettingPassword: Bool
  
  var body: some View {
   
@@ -78,56 +81,18 @@ struct FirstPageButtonView: View {
       Text("Sign up")
      }).modifier(ButtonStyle())
     }
+    
+    Button(action: {
+     isResettingPassword = true
+ 
+    }, label: {
+     Text("Reset password")
+    }).modifier(ButtonStyle())
+    
 
     Spacer()
    }
 
-  }
- }
-}
-
-struct ResetPassword: View {
- 
- @State var email = ""
- @State var isButtonClicked = false
- @Binding var isResettingPassword: Bool
- @ObservedObject var userAuth = UserAuthentication()
- 
- var body: some View {
-  
-  VStack {
-   BackButton(Boolean: $isResettingPassword)
-   
-   Spacer()
-   
-   VStack {
-    
-    VStack {
-     Text("Email:").modifier(TextFieldLabelStyle())
-      TextField("Email", text: $email )
-       .modifier(TextFieldStyle())
-    }
-    
-    if isButtonClicked {
-     
-     Text("You will recieve an email with instructions on how to reset your password.")
-      .frame(maxWidth: 250)
-      .frame(width: 180)
-      .foregroundStyle(.white)
-      .padding()
-    }
-    
-    Button(action: {
-     userAuth.resetUserPassword(email: email)
-     isButtonClicked = true
-    }, label: {
-     Text("Send")
-     
-    }).modifier(ButtonStyle())
-    
-   }
-   Spacer()
-   
   }
  }
 }
@@ -214,7 +179,6 @@ struct Login: View {
  @State var email = ""
  @State var password = ""
  @Binding var isLoggingIn: Bool
- @State private var isResettingPassword = false
  @ObservedObject var userAuth = UserAuthentication()
  
  var body: some View {
@@ -240,17 +204,56 @@ struct Login: View {
    
    Button(action: {
     userAuth.login(email: email, password: password)
+  
    }, label: {
     Text("Sign in")
    }).modifier(ButtonStyle())
    
-   Button(action: {
-    isResettingPassword = true
-   }, label: {
-    Text("Reset password")
-   }).modifier(ButtonStyle())
+   Spacer()
    
+  }
+ }
+}
+
+struct ResetPassword: View {
+ 
+ @State var email = ""
+ @State var isButtonClicked = false
+ @Binding var isResettingPassword: Bool
+ @ObservedObject var userAuth = UserAuthentication()
+ 
+ var body: some View {
+  
+  VStack {
+   BackButton(Boolean: $isResettingPassword)
    
+   Spacer()
+   
+   VStack {
+    
+    VStack {
+     Text("Email:").modifier(TextFieldLabelStyle())
+      TextField("Email", text: $email )
+       .modifier(TextFieldStyle())
+    }
+    
+    if isButtonClicked {
+     
+     Text("You will recieve an email with instructions on how to reset your password.")
+      .frame(maxWidth: 250)
+      .frame(width: 180)
+      .foregroundStyle(.white)
+      .padding()
+    }
+    
+    Button(action: {
+     userAuth.resetUserPassword(email: email)
+ 
+    }, label: {
+     Text("Send")
+     
+    }).modifier(ButtonStyle())
+   }
    Spacer()
    
   }
