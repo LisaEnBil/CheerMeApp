@@ -43,18 +43,19 @@ struct CatListRow<Destination: View>: View {
             .foregroundStyle(pink)
             .background(concrete)
         }
-        .cornerRadius(20)
-        .listRowBackground(RoundedRectangle(cornerRadius: 20)
+        .cornerRadius(10)
+        .listRowBackground(RoundedRectangle(cornerRadius: 10)
             .background(.clear)
             .foregroundColor(concrete)
             .padding(
                 EdgeInsets(
                     top: 5,
-                    leading: 10,
+                    leading: 0,
                     bottom: 10,
-                    trailing: 5
+                    trailing: 0
                 )
             )
+
         )
         .listRowSeparator(.hidden)
         .listRowSpacing(10)
@@ -90,7 +91,8 @@ struct ContentView: View {
                             }, label: {
                                 Label("Delete", systemImage: "trash")
                             })
-                        }    
+                        
+                        }
                     }
             }
             .refreshable {
