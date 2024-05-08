@@ -64,7 +64,9 @@ class CatHelpers: ObservableObject {
                             if dbRef == "library_cats" {
                                 self.libraryCats.append(catModel)
                             }
+                    
                             self.cats.append(catModel)
+                            self.cats = removeDuplicateElements(arr: self.cats)
                         }
                     } catch {
                         print("Error fetching data: \(error.localizedDescription)")
@@ -79,24 +81,38 @@ class CatHelpers: ObservableObject {
 
         var ref: DatabaseReference!
         ref = Database.database().reference()
-   
+
         let storage = Storage.storage()
         let storageRef = storage.reference()
         let audioFileRef = storageRef.child("users/\(uid)/\(id)/\(name).wav")
         let imageFileRef = storageRef.child("users/\(uid)/\(id)/\(name).png")
-
+        
         do {
-          // Delete the file
-          try await audioFileRef.delete()
-        try await imageFileRef.delete()
-        } catch {
-          // ...
+            try await audioFileRef.delete()
+            try await imageFileRef.delete()
+            print("succeeded with deleting data from storage")
+            
+        } catch let error{
+            print("Error deleting files", error)
         }
         
         do {
             try await ref.child("user_cat_list").child(uid).child(id).removeValue()
+            print("succeeded with deleting data from db")
         } catch let error {
             print("Error deleting data", error)
         }
+    }
+    
+    func removeDuplicateElements(arr: [CatModel]) -> [CatModel] {
+        var uniqueElements: [CatModel] = []
+          var uniqueIds: Set<String> = []
+          
+          for x in arr {
+              if uniqueIds.insert(x.id).inserted {
+                  uniqueElements.append(x)
+              }
+          }
+          return uniqueElements
     }
 }

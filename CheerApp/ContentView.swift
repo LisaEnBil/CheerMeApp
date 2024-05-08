@@ -69,6 +69,7 @@ struct ContentView: View {
 
     @ObservedObject var catHelpers = CatHelpers()
     @ObservedObject var audioRecorder = AudioManager()
+    @State var refresh: Bool = false
     
     var body: some View {
         VStack {
@@ -92,7 +93,10 @@ struct ContentView: View {
                         }    
                     }
             }
-            .scrollContentBackground(.hidden) // will hide default background for scroll content
+            .refreshable {
+                catHelpers.loadStoredCats(dbRef: "user_cat_list" )
+            }
+            .scrollContentBackground(.hidden)
             .foregroundStyle(pink, pink)
             .background(.gray)
             .navigationBarTitleDisplayMode(.inline)
@@ -139,6 +143,11 @@ struct ContentView: View {
                 SettingsView(showModal: $showSettingsModal)
             }
         }
+    }
+
+    
+    func update() {
+       refresh.toggle()
     }
 }
 

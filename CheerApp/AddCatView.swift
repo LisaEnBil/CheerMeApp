@@ -21,6 +21,7 @@ struct AddCatView: View {
     @State var id: String
     @Binding var cats: [CatModel]
     @ObservedObject var audioRecorder = AudioManager()
+    @ObservedObject var catHelpers = CatHelpers()
     
     var body: some View {
         VStack {
@@ -172,7 +173,6 @@ struct AddCatView: View {
         
         do {
             try await ref.child("user_cat_list").child(uid).child(id).setValue(cat)
-            cats.append(addCat)
         } catch {
             print("Error adding new cat")
         }
