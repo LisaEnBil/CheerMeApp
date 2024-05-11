@@ -82,7 +82,7 @@ struct ContentView: View {
                     CatView(model: cat)
                 }) {
                     await catHelpers.deleteCat(id: cat.id, name: cat.name)
-                }   .swipeActions(edge: .trailing) {
+                }   .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                     if !catHelpers.libraryCats.contains(cat) {
                             Button(role: .destructive, action: {
                                 Task {
@@ -91,7 +91,7 @@ struct ContentView: View {
                             }, label: {
                                 Label("Delete", systemImage: "trash")
                             })
-                        
+                            .frame(height: 30)
                         }
                     }
             }
@@ -145,11 +145,6 @@ struct ContentView: View {
                 SettingsView(showModal: $showSettingsModal)
             }
         }
-    }
-
-    
-    func update() {
-       refresh.toggle()
     }
 }
 
