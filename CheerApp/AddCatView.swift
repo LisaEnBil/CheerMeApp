@@ -61,6 +61,7 @@ struct AddCatView: View {
                     
                 } else {
                     self.audioRecorder.startRecording()
+                    hasRecorded = false
                     
                 }
             }) {
