@@ -40,37 +40,8 @@ struct SettingsView: View {
                     }
                     .popover(isPresented: $isShowingPopover) {
                         
-                        VStack {
-                            Text("Are you sure you want to delete your account?")
-                                .foregroundColor(.white)
-                                .font(.title2)
-                                .padding()
-                            
-                            HStack {
-                                
-                                Spacer()
-                                
-                                Button( action: {
-                                    self.isShowingPopover = false
-                                }, label: {
-                                    Text("No").foregroundColor(pink).font(.title2)
-                                })   .modifier(ListItemAction())
-                                    .padding()
-                                
-                                Spacer()
-                                
-                                Button( action: {
-                                    isDeletingAccount = true
-                                    
-                                }, label: {
-                                    Text("Yes").foregroundColor(pink).font(.title2)
-                                })   .modifier(ListItemAction())
-                                Spacer()
-                                
-                            }
-                            Spacer()
-                        }.frame(maxWidth: .infinity, maxHeight: .infinity).background(concrete)
-                        
+                        DeleteAcountView(isShowingPopover: $isShowingPopover, isDeletingAccount: $isDeletingAccount)
+                      
                     }.modifier(ListItemAction()).foregroundColor(pink)
                     
                     Button( action: {
@@ -95,17 +66,105 @@ struct DeleteAccountProgressView: View {
     @Binding var Boolean: Bool
     
     var body: some View {
-        HStack {
+        VStack {
             ProgressView()
             
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.gray)
         .onAppear(){
-            if Boolean {
-                Task {
-                    UserAuthentication().deleteUserAndAccount()
-                }      }
+//            if Boolean {
+//                Task {
+//                    UserAuthentication().deleteUserAndAccount()
+//                }      }
             
         }    
     }
 }
+
+
+struct DeleteAcountView: View {
+    @Binding var isShowingPopover: Bool
+    @Binding var isDeletingAccount: Bool
+    @State var isReauthenticated = false
+    
+    @State var email = ""
+    @State var password = ""
+    
+    var body: some View {
+        
+        VStack {
+            Text("Are you sure you want to delete your account?")
+                .foregroundColor(.white)
+                .font(.title2)
+                .padding()
+            
+
+            Text("Email:").modifier(TextFieldLabelStyle())
+            TextField("Email", text: $email )
+             .modifier(EmailFieldStyle())
+             .modifier(TextFieldStyle())
+             .padding([.bottom], 10)
+            
+            Text("Password:").modifier(TextFieldLabelStyle())
+            SecureField("Password", text: $password )
+             .disableAutocorrection(true)
+             .modifier(TextFieldStyle())
+             .padding([.bottom], 10)
+            
+            Button(action: {
+            reAuthenticateUser(email: email, password: password)
+             
+            }, label: {
+             Text("Delete acount")
+            }).modifier(ButtonStyle())
+            
+//            HStack {
+//                
+//                Spacer()
+//                
+//                Button( action: {
+//                    self.isShowingPopover = false
+//                }, label: {
+//                    Text("No").foregroundColor(pink).font(.title2)
+//                })   .modifier(ListItemAction())
+//                    .padding()
+//                
+//                Spacer()
+//                
+//                Button( action: {
+//                    
+//                    isDeletingAccount = true
+//                    
+//                }, label: {
+//                    Text("Yes").foregroundStyle(isDeletingAccount ? .gray : pink)
+//                        .font(.title2)
+//                }).disabled(isDeletingAccount).modifier(ListItemAction())
+//                   
+//                Spacer() 
+//            }
+            Spacer()
+        }.frame(maxWidth: .infinity, maxHeight: .infinity).background(concrete)
+        
+    }
+    
+    func reAuthenticateUser(email: String, password: String) {
+        
+        do {
+            UserAuthentication().login(email: email, password: password)
+            isReauthenticated = true
+            
+            print("Reauthentication succeeded")
+        } catch let error {
+            print("Couldn't reauthenticate: \(error.localizedDescription)")
+           
+        }
+        
+        if isReauthenticated {
+            
+            UserAuthentication().deleteUserAndAccount()
+        }
+  
+    }
+}
+

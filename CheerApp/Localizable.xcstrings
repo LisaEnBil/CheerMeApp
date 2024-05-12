@@ -64,6 +64,16 @@
         }
       }
     },
+    "Delete acount" : {
+      "localizations" : {
+        "sv-SE" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Radera konto"
+          }
+        }
+      }
+    },
     "Email" : {
       "localizations" : {
         "sv-SE" : {
@@ -120,16 +130,6 @@
     "Key 1" : {
       "extractionState" : "manual"
     },
-    "No" : {
-      "localizations" : {
-        "sv-SE" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nej"
-          }
-        }
-      }
-    },
     "Password" : {
       "localizations" : {
         "sv-SE" : {
@@ -156,17 +156,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Lösenord igen:"
-          }
-        }
-      }
-    },
-    "Password is too short" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "sv-SE" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Lösenordet är för kort, minst 6 tecken"
           }
         }
       }
@@ -287,16 +276,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Skapa"
-          }
-        }
-      }
-    },
-    "Yes" : {
-      "localizations" : {
-        "sv-SE" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ja"
           }
         }
       }
