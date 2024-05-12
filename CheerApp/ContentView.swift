@@ -39,26 +39,21 @@ struct CatListRow<Destination: View>: View {
                 
                 Spacer()
             }
-            .padding()
+            
             .foregroundStyle(pink)
             .background(concrete)
         }
         .cornerRadius(10)
-        .listRowBackground(RoundedRectangle(cornerRadius: 10)
+        .listRowBackground(UnevenRoundedRectangle(cornerRadii: .init(
+            topLeading: 10.0,
+            bottomLeading: 10.0,
+            bottomTrailing: 0,
+            topTrailing: 0),
+            style: .continuous)
             .background(.clear)
             .foregroundColor(concrete)
-            .padding(
-                EdgeInsets(
-                    top: 5,
-                    leading: 0,
-                    bottom: 10,
-                    trailing: 0
-                )
-            )
-
         )
         .listRowSeparator(.hidden)
-        .listRowSpacing(10)
     }
 }
 
@@ -89,15 +84,15 @@ struct ContentView: View {
                                     await catHelpers.deleteCat(id: cat.id, name: cat.name)
                                 }
                             }, label: {
-                                Label("Delete", systemImage: "trash")
+                                Label("Delete", systemImage: "trash").tint(.white)
                             })
-                            .frame(height: 30)
                         }
-                    }
+                }
             }
             .refreshable {
                 catHelpers.loadStoredCats(dbRef: "user_cat_list" )
             }
+            .listRowSpacing(10)
             .scrollContentBackground(.hidden)
             .foregroundStyle(pink, pink)
             .background(.gray)
