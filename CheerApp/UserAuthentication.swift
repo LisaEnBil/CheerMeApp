@@ -45,18 +45,22 @@ class UserAuthentication: ObservableObject {
         }
     }
     
-    func login(email: String, password: String) {
+    func login(email: String, password: String, isButtonClicked: Bool) -> Bool {
+        
+        var isButtonClicked = isButtonClicked
         Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
             
             if error == nil {
                 print("Login OK")
                 self.isIncorrect = false
+                isButtonClicked = true
             } else {
                 print("Login fail")
                 self.isIncorrect = true
                 
             }
         }
+        return isButtonClicked
     }
     
     func logout() {

@@ -229,8 +229,7 @@ struct Login: View {
     .padding([.bottom], 10)
    
    Button(action: {
-    isButtonClicked = true
-    userAuth.login(email: email, password: password)
+   isButtonClicked = userAuth.login(email: email, password: password, isButtonClicked: isButtonClicked)
     
    }, label: {
     Text("Sign in")

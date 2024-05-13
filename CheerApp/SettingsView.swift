@@ -80,6 +80,7 @@ struct DeleteAcountView: View {
     @Binding var isShowingPopover: Bool
     @Binding var isDeletingAccount: Bool
     @State var isReauthenticated = false
+    @State private var isButtonClicked = false
     
     @State var email = ""
     @State var password = ""
@@ -105,26 +106,30 @@ struct DeleteAcountView: View {
                 .padding([.bottom], 10)
             
             Button(action: {
-                reAuthenticateUser(email: email, password: password)
+                isButtonClicked = reAuthenticateUser(email: email, password: password, isButtonClicked: isButtonClicked)
                 email = ""
                 password = ""
                 
             }, label: {
                 Text("Delete acount")
-            }).modifier(ButtonStyle())
+            })
+            .foregroundStyle(isButtonClicked ? .gray : pink)
+            .modifier(ButtonStyle())
+            .disabled(isButtonClicked)
             
             Spacer()
         }.frame(maxWidth: .infinity, maxHeight: .infinity).background(concrete)
         
     }
     
-    func reAuthenticateUser(email: String, password: String) {
+    func reAuthenticateUser(email: String, password: String, isButtonClicked: Bool) -> Bool {
         
         let userEmail = Auth.auth().currentUser?.email
+        var isBClicked = false
         
         if userEmail == email {
             do {
-                UserAuthentication().login(email: email, password: password)
+                isBClicked = UserAuthentication().login(email: email, password: password, isButtonClicked: isButtonClicked)
                 isReauthenticated = true
                 
                 print("Reauthentication succeeded")
@@ -141,6 +146,7 @@ struct DeleteAcountView: View {
             
             print("Couldn't reauthenticate, emails doesn't match")
         }
+        return isBClicked
     }
 }
 
