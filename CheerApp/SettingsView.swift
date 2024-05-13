@@ -41,7 +41,7 @@ struct SettingsView: View {
                     .popover(isPresented: $isShowingPopover) {
                         
                         DeleteAcountView(isShowingPopover: $isShowingPopover, isDeletingAccount: $isDeletingAccount)
-                      
+                        
                     }.modifier(ListItemAction()).foregroundColor(pink)
                     
                     Button( action: {
@@ -72,13 +72,6 @@ struct DeleteAccountProgressView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.gray)
-        .onAppear(){
-//            if Boolean {
-//                Task {
-//                    UserAuthentication().deleteUserAndAccount()
-//                }      }
-            
-        }    
     }
 }
 
@@ -99,50 +92,27 @@ struct DeleteAcountView: View {
                 .font(.title2)
                 .padding()
             
-
             Text("Email:").modifier(TextFieldLabelStyle())
             TextField("Email", text: $email )
-             .modifier(EmailFieldStyle())
-             .modifier(TextFieldStyle())
-             .padding([.bottom], 10)
+                .modifier(EmailFieldStyle())
+                .modifier(TextFieldStyle())
+                .padding([.bottom], 10)
             
             Text("Password:").modifier(TextFieldLabelStyle())
             SecureField("Password", text: $password )
-             .disableAutocorrection(true)
-             .modifier(TextFieldStyle())
-             .padding([.bottom], 10)
+                .disableAutocorrection(true)
+                .modifier(TextFieldStyle())
+                .padding([.bottom], 10)
             
             Button(action: {
-            reAuthenticateUser(email: email, password: password)
-             
+                reAuthenticateUser(email: email, password: password)
+                email = ""
+                password = ""
+                
             }, label: {
-             Text("Delete acount")
+                Text("Delete acount")
             }).modifier(ButtonStyle())
             
-//            HStack {
-//                
-//                Spacer()
-//                
-//                Button( action: {
-//                    self.isShowingPopover = false
-//                }, label: {
-//                    Text("No").foregroundColor(pink).font(.title2)
-//                })   .modifier(ListItemAction())
-//                    .padding()
-//                
-//                Spacer()
-//                
-//                Button( action: {
-//                    
-//                    isDeletingAccount = true
-//                    
-//                }, label: {
-//                    Text("Yes").foregroundStyle(isDeletingAccount ? .gray : pink)
-//                        .font(.title2)
-//                }).disabled(isDeletingAccount).modifier(ListItemAction())
-//                   
-//                Spacer() 
-//            }
             Spacer()
         }.frame(maxWidth: .infinity, maxHeight: .infinity).background(concrete)
         
@@ -150,21 +120,27 @@ struct DeleteAcountView: View {
     
     func reAuthenticateUser(email: String, password: String) {
         
-        do {
-            UserAuthentication().login(email: email, password: password)
-            isReauthenticated = true
-            
-            print("Reauthentication succeeded")
-        } catch let error {
-            print("Couldn't reauthenticate: \(error.localizedDescription)")
-           
-        }
+        let userEmail = Auth.auth().currentUser?.email
         
-        if isReauthenticated {
+        if userEmail == email {
+            do {
+                UserAuthentication().login(email: email, password: password)
+                isReauthenticated = true
+                
+                print("Reauthentication succeeded")
+            } catch let error {
+                print("Couldn't reauthenticate: \(error.localizedDescription)")
+                
+            }
             
-            UserAuthentication().deleteUserAndAccount()
+            if isReauthenticated {
+                
+                UserAuthentication().deleteUserAndAccount()
+            }
+        } else {
+            
+            print("Couldn't reauthenticate, emails doesn't match")
         }
-  
     }
 }
 
