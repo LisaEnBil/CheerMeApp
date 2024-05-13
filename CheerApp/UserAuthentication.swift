@@ -67,68 +67,7 @@ class UserAuthentication: ObservableObject {
             print("Error signing out: %@", signOutError)
         }
     }
-    
-    //    func deleteUser() async -> String {
-    //
-    //        var result = ""
-    //        let uid = Auth.auth().currentUser!.uid
-    //        var ref : DatabaseReference!
-    //
-    //
-    //        let storage = Storage.storage()
-    //        let storageRef = storage.reference()
-    //        ref = Database.database().reference()
-    //
-    //
-    //        let fileRef = storageRef.child("users/\(uid)/")
-    //
-    //
-    //
-    //        folderRef.listAll { (result, error) in
-    //            if let error = error {
-    //                print("Error listing files in folder: \(error.localizedDescription)")
-    //                return
-    //            }
-    //
-    //            // Delete each file in the folder
-    //            let deleteGroup = DispatchGroup()
-    //            for item in result!.items {
-    //                deleteGroup.enter()
-    //                item.delete { error in
-    //                    if let error = error {
-    //                        print("Error deleting file: \(error.localizedDescription)")
-    //                    }
-    //                    deleteGroup.leave()
-    //                }
-    //            }
-    //
-    //            deleteGroup.notify(queue: .main) {
-    //                print("Folder and all files deleted successfully")
-    //            }
-    //        }
-    
-    //        do {
-    //
-    //            try await ref.child("user_cat_list").child(uid).removeValue()
-    //             isStorageRemoved = true
-    //        } catch let error {
-    //            print("Error deleting data", error)
-    //        }
-    //
-    //        if isStorageRemoved {
-    //            await deleteUserAuth { error in
-    //                if let error = error {
-    //                    result = "Error deleting account: \(error.localizedDescription)"
-    //                } else {
-    //                    result = "Success deleting account"
-    //                }
-    //            }
-    //        }
-    
-    
-    //  return result
-    // }
-    //
+
     func deleteUserAndAccount() {
         Task {
             await UserAuthentication().deleteUser()
@@ -164,21 +103,6 @@ class UserAuthentication: ObservableObject {
             print("Error deleting account: \(error)")
         }
     }
-    
-//    func deleteUserAuth() async  {
-//        let user = Auth.auth().currentUser
-//        
-//        Task {
-//            user?.delete { error in
-//                if let error = error {
-//                    print("Error deleting account: \(error)")
-//                    
-//                } else {
-//                    print("Success deleting account")
-//                }
-//            }
-//        }
-//    }
     
     func deleteUserStorageData(uid: String){
         
