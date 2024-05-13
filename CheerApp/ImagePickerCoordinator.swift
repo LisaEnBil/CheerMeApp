@@ -33,6 +33,7 @@ class ImagePickerCoordinator: NSObject, UINavigationControllerDelegate, UIImageP
 struct ImagePicker: UIViewControllerRepresentable {
     @Environment(\.presentationMode) var presentationMode
     @Binding var selectedImage: UIImage?
+    @Binding var sourceType: UIImagePickerController.SourceType
     
     func makeCoordinator() -> ImagePickerCoordinator {
         ImagePickerCoordinator(self)
@@ -42,7 +43,7 @@ struct ImagePicker: UIViewControllerRepresentable {
         let picker = UIImagePickerController()
         picker.delegate = context.coordinator
         
-        if UIImagePickerController.isSourceTypeAvailable(.camera){
+        if UIImagePickerController.isSourceTypeAvailable(.camera) && sourceType == .camera{
             picker.sourceType = .camera
         } else {
             picker.sourceType = .photoLibrary

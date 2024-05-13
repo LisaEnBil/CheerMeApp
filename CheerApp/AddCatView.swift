@@ -16,7 +16,6 @@ struct AddCatView: View {
     
     @Binding var showModal: Bool
     @State private var selectedItem: PhotosPickerItem?
-    //@Binding var image: UIImage?
     @State var name: String
     @State private var hasRecorded = false
     @State var id: String
@@ -25,6 +24,7 @@ struct AddCatView: View {
     @ObservedObject var catHelpers = CatHelpers()
     @State private var image: UIImage?
     @State private var isImagePickerDisplayed = false
+    @State private var sourceType: UIImagePickerController.SourceType = .photoLibrary
     
     var body: some View {
         VStack {
@@ -34,30 +34,42 @@ struct AddCatView: View {
             TextField("Your cat's name here", text: $name)
                 .modifier(TextFieldStyle())
               
-            
             Spacer()
             
+         
             VStack {
-                Button("Take Photo") {
-                    isImagePickerDisplayed = true
+                HStack {
+                    
+                    Button(action: {
+                        isImagePickerDisplayed = true
+                        sourceType = .camera
+                    }, label: {
+                        Image(systemName: "camera.circle")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 50, height: 50)
+                    })
+                    Spacer()
+                    Button(action: {
+                        isImagePickerDisplayed = true
+                        
+                        
+                        sourceType = .photoLibrary
+                    }, label: {
+                        Image(systemName:"folder.circle")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 50, height: 50)
+                    })
                 }
+           
+
             }
             .sheet(isPresented: $isImagePickerDisplayed) {
                 
-                ImagePicker(selectedImage: $image)
+                ImagePicker(selectedImage: $image, sourceType: $sourceType)
             }
        
-//            PhotosPicker("Select an image", selection: $selectedItem, matching: .images)
-//                .onChange(of: selectedItem) {
-////                    
-//                    Task {
-//                        if let data = try? await selectedItem?.loadTransferable(type: Data.self) {
-//                            image = Image(image)
-//                        }
-//                        print("Failed to load the image")
-//                    }
-//                }.padding().modifier(ButtonStyle())
-            
             if let image {
                 Image(uiImage: image)
                     .resizable()
@@ -108,9 +120,8 @@ struct AddCatView: View {
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(concrete)
-        
-        
     }
+    
     func addCat(_ cat: CatModel) {
         cats.append(cat)
     }
@@ -194,3 +205,16 @@ struct AddCatView: View {
     
 
 }
+
+
+//            PhotosPicker("Select an image", selection: $selectedItem, matching: .images)
+//                .onChange(of: selectedItem) {
+////
+//                    Task {
+//                        if let data = try? await selectedItem?.loadTransferable(type: Data.self) {
+//                            image = Image(image)
+//                        }
+//                        print("Failed to load the image")
+//                    }
+//                }.padding().modifier(ButtonStyle())
+            
