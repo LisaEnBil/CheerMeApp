@@ -34,16 +34,12 @@ struct StartView: View {
                  .aspectRatio(contentMode: .fit)
                  .frame(width: 150.0, height: 150.0)
                  .cornerRadius(5.0)
-              
-               
             }
-            
         }.onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
                 withAnimation {
                     self.showSplash = true
                 }
-                
                 
                 Auth.auth().addStateDidChangeListener {
                     auth, user in

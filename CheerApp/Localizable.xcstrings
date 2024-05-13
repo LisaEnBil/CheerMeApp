@@ -4,6 +4,46 @@
     "" : {
 
     },
+    "1" : {
+      "localizations" : {
+        "sv-SE" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1"
+          }
+        }
+      }
+    },
+    "2" : {
+      "localizations" : {
+        "sv-SE" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2"
+          }
+        }
+      }
+    },
+    "3" : {
+      "localizations" : {
+        "sv-SE" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3"
+          }
+        }
+      }
+    },
+    "4" : {
+      "localizations" : {
+        "sv-SE" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "4"
+          }
+        }
+      }
+    },
     "Add cat" : {
       "localizations" : {
         "sv-SE" : {
@@ -190,6 +230,16 @@
         }
       }
     },
+    "Record your purring cat " : {
+      "localizations" : {
+        "sv-SE" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spela in din spinnande katt"
+          }
+        }
+      }
+    },
     "Registration failed, incorrect email format." : {
       "localizations" : {
         "sv-SE" : {
@@ -210,23 +260,22 @@
         }
       }
     },
-    "Save your cat" : {
+    "Save" : {
+      "localizations" : {
+        "sv-SE" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spara"
+          }
+        }
+      }
+    },
+    "Save your cat by clicking save" : {
       "localizations" : {
         "sv-SE" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Spara din katt"
-          }
-        }
-      }
-    },
-    "Select an image" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "sv-SE" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Välj en bild"
           }
         }
       }
@@ -277,6 +326,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Skapa"
+          }
+        }
+      }
+    },
+    "Take a photo or choose from photo library " : {
+      "localizations" : {
+        "sv-SE" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ta ett foto eller välj från bibliotek"
           }
         }
       }

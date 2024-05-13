@@ -39,7 +39,6 @@ struct CatListRow<Destination: View>: View {
                 
                 Spacer()
             }
-            
             .foregroundStyle(pink)
             .background(concrete)
         }
