@@ -280,7 +280,7 @@
         }
       }
     },
-    "You will recieve an email with instructions on how to reset your password." : {
+    "You will receive an email with instructions on how to reset your password." : {
       "localizations" : {
         "sv-SE" : {
           "stringUnit" : {
