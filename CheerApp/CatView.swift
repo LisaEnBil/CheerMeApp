@@ -19,8 +19,6 @@ struct CatView: View {
     
     var body: some View {
         VStack {
-
-            Text(model.name).foregroundStyle(.white).font(.title)
         
         Image(uiImage: model.image)
             .resizable()
@@ -47,7 +45,11 @@ struct CatView: View {
                 hapticManager.prepareHaptics()
                 initializeAudioPlayer()
             }
-        }.frame(maxWidth: .infinity, maxHeight: .infinity).background(concrete)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(concrete)
+        .toolbar(content: toolbarContent)
+        .toolbarBackground(concrete)
     }
     
     func initializeAudioPlayer()  {
@@ -66,6 +68,15 @@ struct CatView: View {
             
         } catch {
             print("Error playing audio: \(error)")
+        }
+    }
+    
+    @ToolbarContentBuilder
+    func toolbarContent() -> some ToolbarContent{
+        
+        ToolbarItem(placement: .principal) {
+            Text(model.name)
+                .foregroundStyle(.white)
         }
     }
 }
