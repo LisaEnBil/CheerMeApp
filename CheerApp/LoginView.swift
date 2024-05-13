@@ -137,7 +137,10 @@ struct SignUp: View {
    
    Spacer()
    if passwordTooShort{
-    Text("Password is too short, password needs to exist of at least 6 characters").foregroundColor(.red)
+    Text("Password is too short, password needs to exist of at least 6 characters") 
+     .frame(maxWidth: 250)
+     .frame(width: 180)
+     .foregroundColor(.red)
    }
    
    if !isMatching {
