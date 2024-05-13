@@ -123,7 +123,7 @@ struct ContentView: View {
                 showAddCatModal = true
             }
             .sheet(isPresented: $showAddCatModal) {
-                AddCatView(showModal: $showAddCatModal, image: $image, name: "", id: "", cats: $catHelpers.cats)
+                AddCatView(showModal: $showAddCatModal,  name: "", id: "", cats: $catHelpers.cats)
             }
         }
         ToolbarItem(placement: .principal) {

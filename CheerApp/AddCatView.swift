@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 import PhotosUI
 import Firebase
 import FirebaseStorage
@@ -15,13 +16,15 @@ struct AddCatView: View {
     
     @Binding var showModal: Bool
     @State private var selectedItem: PhotosPickerItem?
-    @Binding var image: UIImage?
+    //@Binding var image: UIImage?
     @State var name: String
     @State private var hasRecorded = false
     @State var id: String
     @Binding var cats: [CatModel]
     @ObservedObject var audioRecorder = AudioManager()
     @ObservedObject var catHelpers = CatHelpers()
+    @State private var image: UIImage?
+    @State private var isImagePickerDisplayed = false
     
     var body: some View {
         VStack {
@@ -33,17 +36,27 @@ struct AddCatView: View {
               
             
             Spacer()
+            
+            VStack {
+                Button("Take Photo") {
+                    isImagePickerDisplayed = true
+                }
+            }
+            .sheet(isPresented: $isImagePickerDisplayed) {
+                
+                ImagePicker(selectedImage: $image)
+            }
        
-            PhotosPicker("Select an image", selection: $selectedItem, matching: .images)
-                .onChange(of: selectedItem) {
-                    
-                    Task {
-                        if let data = try? await selectedItem?.loadTransferable(type: Data.self) {
-                            image = UIImage(data: data)
-                        }
-                        print("Failed to load the image")
-                    }
-                }.padding().modifier(ButtonStyle())
+//            PhotosPicker("Select an image", selection: $selectedItem, matching: .images)
+//                .onChange(of: selectedItem) {
+////                    
+//                    Task {
+//                        if let data = try? await selectedItem?.loadTransferable(type: Data.self) {
+//                            image = Image(image)
+//                        }
+//                        print("Failed to load the image")
+//                    }
+//                }.padding().modifier(ButtonStyle())
             
             if let image {
                 Image(uiImage: image)
@@ -177,7 +190,7 @@ struct AddCatView: View {
         } catch {
             print("Error adding new cat")
         }
-      
-        
     }
+    
+
 }
