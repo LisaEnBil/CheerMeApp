@@ -131,15 +131,15 @@ struct SignUp: View {
  var body: some View {
   
   VStack {
-
-    BackButton(Boolean: $isRegistering)
-  
-
+   
+   BackButton(Boolean: $isRegistering)
+   
+   
    Spacer()
    if passwordTooShort{
     Text("Password is too short, password needs to exist of at least 6 characters").foregroundColor(.red)
    }
-  
+   
    if !isMatching {
     Text("Passwords doesn't match").foregroundColor(.red)
    }
@@ -155,7 +155,7 @@ struct SignUp: View {
     .modifier(EmailFieldStyle())
     .modifier(TextFieldStyle())
     .padding([.bottom], 10)
-
+   
    Text("Password:").modifier(TextFieldLabelStyle())
    SecureField("Password", text: $password )
     .disableAutocorrection(true)
@@ -193,8 +193,8 @@ struct SignUp: View {
     Text("Submit")
    }) 
    .foregroundStyle(isButtonClicked ? .gray : pink)
-    .modifier(ButtonStyle())
-    .disabled(isButtonClicked)
+   .modifier(ButtonStyle())
+   .disabled(isButtonClicked)
    
    Spacer()
   }
@@ -245,61 +245,61 @@ struct Login: View {
 }
 
 struct ResetPassword: View {
-    @State private var email = ""
-    @State private var isButtonClicked = false
-    @Binding var isResettingPassword: Bool
-    @ObservedObject private var userAuth = UserAuthentication()
-    @State private var showError = false
-
-    var body: some View {
-        VStack {
-            BackButton(Boolean: $isResettingPassword)
-
-            Spacer()
-
-            VStack {
-                if showError {
-                    Text("Incorrect email format.")
-                        .foregroundColor(.red)
-                        .padding()
-                }
-
-                Text("Email:").modifier(TextFieldLabelStyle())
-                TextField("Email", text: $email)
-                    .modifier(EmailFieldStyle())
-                    .modifier(TextFieldStyle())
-                    .padding([.bottom], 10)
-
-                if isButtonClicked {
-                    Text("You will receive an email with instructions on how to reset your password.")
-                        .frame(maxWidth: 250)
-                        .frame(width: 180)
-                        .foregroundStyle(.white)
-                        .padding()
-                }
-
-                Button(action: {
-                    isButtonClicked = true
-             
-                    Task {
-                        do {
-                            print("isButtonClicked", isButtonClicked)
-                            try await userAuth.resetUserPassword(email: email)
-                            print("Password reset email sent successfully")
-                        } catch {
-                            showError = true
-                            print("Error resetting password: \(error.localizedDescription)")
-                        }
-                    }
-                }, label: {
-                    Text("Send")
-                })
-                .foregroundStyle(isButtonClicked ? .gray : pink)
-                .modifier(ButtonStyle())
-                .disabled(isButtonClicked)
-            }
-            Spacer()
-        }
+ @State private var email = ""
+ @State private var isButtonClicked = false
+ @Binding var isResettingPassword: Bool
+ @ObservedObject private var userAuth = UserAuthentication()
+ @State private var showError = false
+ 
+ var body: some View {
+  VStack {
+   BackButton(Boolean: $isResettingPassword)
+   
+   Spacer()
+   
+   VStack {
+    if showError {
+     Text("Incorrect email format.")
+      .foregroundColor(.red)
+      .padding()
     }
+    
+    Text("Email:").modifier(TextFieldLabelStyle())
+    TextField("Email", text: $email)
+     .modifier(EmailFieldStyle())
+     .modifier(TextFieldStyle())
+     .padding([.bottom], 10)
+    
+    if isButtonClicked {
+     Text("You will receive an email with instructions on how to reset your password.")
+      .frame(maxWidth: 250)
+      .frame(width: 180)
+      .foregroundStyle(.white)
+      .padding()
+    }
+    
+    Button(action: {
+     isButtonClicked = true
+     
+     Task {
+      do {
+       print("isButtonClicked", isButtonClicked)
+       try await userAuth.resetUserPassword(email: email)
+       print("Password reset email sent successfully")
+      } catch {
+       showError = true
+       print("Error resetting password: \(error.localizedDescription)")
+      }
+     }
+    }, label: {
+     Text("Send")
+    })
+    .foregroundStyle(isButtonClicked ? .gray : pink)
+    .modifier(ButtonStyle())
+    .disabled(isButtonClicked)
+   }
+   Spacer()
+  }
+ }
 }
 

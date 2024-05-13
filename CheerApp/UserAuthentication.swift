@@ -67,7 +67,7 @@ class UserAuthentication: ObservableObject {
             print("Error signing out: %@", signOutError)
         }
     }
-
+    
     func deleteUserAndAccount() {
         Task {
             await UserAuthentication().deleteUser()
@@ -82,7 +82,7 @@ class UserAuthentication: ObservableObject {
         }
         
         deleteUserStorageData(uid: uid)
-
+        
         Task {
             await deleteUserAuth()
         }
@@ -123,7 +123,7 @@ class UserAuthentication: ObservableObject {
                       let theCat = childsnap.value as? [String: Any] else {
                     continue
                 }
-               
+                
                 let name = theCat["name"] as? String ?? ""
                 let id = childsnap.key
                 Task {
@@ -133,4 +133,4 @@ class UserAuthentication: ObservableObject {
         }
     }
 }
-    
+
