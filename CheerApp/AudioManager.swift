@@ -66,6 +66,15 @@ class AudioManager: NSObject, ObservableObject, AVAudioRecorderDelegate {
     }
     
      func setupAudioSession()  {
+         
+         AVAudioApplication.requestRecordPermission { granted in
+             if granted {
+                 print("Permission granted", granted)
+             } else {
+                 print("Permission denied")
+             }
+         }
+         
         do {
             let audioSession = AVAudioSession.sharedInstance()
             try audioSession.setCategory(.playAndRecord, mode: .default)
